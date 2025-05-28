@@ -6,6 +6,26 @@ use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\HasuraTestController;
 use App\Http\Controllers\ResultadoController;
 
+Route::middleware(['auth', 'hasura.user'])->group(function () {
+  Route::get('/', fn () => view('index'))->name('index');
+  Route::view('/degree', 'degree.degree')->name('degree');
+  Route::get('/questions', [QuestionsController::class, 'questions'])->name('questions');
+  Route::view('/institution', 'institution.institution')->name('institution');
+  Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test');
+  Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save');
+  Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados']);
+});
+
+/*Route::get('/', function () {
+    return view('index');
+})->name('index')->middleware('auth');
+Route::view('/degree', 'degree.degree')->name('degree')->middleware('auth');
+Route::get('/questions', [QuestionsController::class, 'questions'])->name('questions')->middleware('auth');
+Route::view('/institution', 'institution.institution')->name('institution')->middleware('auth');
+Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test')->middleware('auth');
+Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save')->middleware('auth');
+Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados'])->middleware('auth');
+*/
 /*Route::get('/private', function () {
   return response('Welcome! You are logged in.');
 })->middleware('auth');*/
@@ -44,15 +64,3 @@ use App\Http\Controllers\ResultadoController;
 
   return response("Hello {$name}! Your favorite color is {$color}.");
 })->middleware('auth');*/
-
-
-
-Route::get('/', function () {
-    return view('index');
-})->name('index')->middleware('auth');
-Route::view('/degree', 'degree.degree')->name('degree')->middleware('auth');
-Route::get('/questions', [QuestionsController::class, 'questions'])->name('questions')->middleware('auth');
-Route::view('/institution', 'institution.institution')->name('institution')->middleware('auth');
-Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test')->middleware('auth');
-Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save')->middleware('auth');
-Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados'])->middleware('auth');

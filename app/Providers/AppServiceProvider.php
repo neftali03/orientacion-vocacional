@@ -27,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $view->with('authUser', Auth::user());
+            $view->with('hasuraUserId', session('hasura_user_id'));
+            $view->with('hasuraUserFirstName', session('hasura_user_first_name'));
         });
     }
 }

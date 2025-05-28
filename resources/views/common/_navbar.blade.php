@@ -26,7 +26,7 @@
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false">
-          {{ $authUser?->name ?? 'Invitado' }}
+          {{ $hasuraUserFirstName ?? 'Invitado' }}
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
         <li>

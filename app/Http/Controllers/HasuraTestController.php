@@ -35,8 +35,8 @@ class HasuraTestController extends Controller
     {
         $questionId = $request->input('question_id');
         $selection = $request->input('selection');
-        $surveyId = '00000000-0000-0000-0000-000000000001';
-        $userId = '00000000-0000-0000-0000-000000000001';
+        // $surveyId = '00000000-0000-0000-0000-000000000001';
+        $userId = session('hasura_user_id');
 
         $mutation = '
             mutation InsertAnswer($input: UserQuestionAnswersInsertInput!) {

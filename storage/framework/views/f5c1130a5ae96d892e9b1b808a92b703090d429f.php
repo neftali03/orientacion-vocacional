@@ -40,7 +40,7 @@
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false">
-          <?php echo e($authUser?->name ?? 'Invitado'); ?>
+          <?php echo e($hasuraUserFirstName ?? 'Invitado'); ?>
 
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
