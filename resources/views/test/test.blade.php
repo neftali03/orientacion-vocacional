@@ -126,9 +126,8 @@
         }
 
         showQuestion();
+        let userId = @json($hasuraUserId);
         function handleFinalAccept() {
-            const userId = '00000000-0000-0000-0000-000000000001'; // ID quemado por ahora
-
             fetch('/enviar-user-id', {
                 method: 'POST',
                 headers: {
