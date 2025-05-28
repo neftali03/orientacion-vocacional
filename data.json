@@ -1,0 +1,9 @@
+{
+  "jwk_url": "https://dev-62jxa14bxgpd6hrq.us.auth0.com/.well-known/jwks.json",
+  "claims_namespace": "claims",
+  "claims_namespace_path":"claims",
+  "claims_format": "json|stringified_json",
+  "audience": "https://growing-kiwi-78.hasura.app/v1/graphql",
+  "issuer": "https://dev-62jxa14bxgpd6hrq.us.auth0.com/",
+  "header": "Authorization"
+}
