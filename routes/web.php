@@ -3,12 +3,13 @@
 use Auth0\Laravel\Facade\Auth0;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\CareerController;
 use App\Http\Controllers\HasuraTestController;
 use App\Http\Controllers\ResultadoController;
 
 Route::middleware(['auth', 'hasura.user'])->group(function () {
   Route::get('/', fn () => view('index'))->name('index');
-  Route::view('/degree', 'degree.degree')->name('degree');
+  Route::get('/degree', [CareerController::class, 'showCareers'])->name('degree');
   Route::get('/questions', [QuestionsController::class, 'questions'])->name('questions');
   Route::view('/institution', 'institution.institution')->name('institution');
   Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test');
