@@ -14,8 +14,10 @@ class CareerController extends Controller
     {
         $this->hasura = $hasura;
     }
-    public function showCareers()
+    public function showCareers(Request $request)
     {
+        $search = $request->input('search');
+
         $query = '
             query {
                 careers(where: {active: {_eq: true}}) {
@@ -39,6 +41,15 @@ class CareerController extends Controller
 
         $careers = $response['data']['careers'] ?? [];
 
-        return view('degree.degree', compact('careers'));
+        if ($search) {
+            $careers = collect($careers)->filter(function ($career) use ($search) {
+                return str_contains(strtolower($career['name']), strtolower($search)) ||
+                    str_contains(strtolower($career['itcaSchool']['name'] ?? ''), strtolower($search));
+            })->values()->all();
+        }
+
+        $groupedCareers = collect($careers)->groupBy(fn ($career) => $career['itcaSchool']['name'] ?? 'No asignada');
+
+        return view('degree.degree', compact('groupedCareers', 'search'));
     }
 }
