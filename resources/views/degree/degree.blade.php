@@ -8,6 +8,24 @@
 @endphp
 
 @section('content')
+
+    <div class="position-fixed top-0 start-0 p-3" style="z-index: 1100; max-width: 400px;">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show shadow-sm w-100" role="alert">
+                <strong><i class="bi bi-check-circle me-1"></i></strong> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show shadow-sm w-100" role="alert">
+                <strong><i class="bi bi-exclamation-triangle me-1"></i></strong> {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+        @endif
+    </div>
+
+
     <div class="d-flex flex-column gap-1">
         <h3 class="fw-bold text-danger-emphasis mb-0">Carreras</h3>
         <p class="mb-0">

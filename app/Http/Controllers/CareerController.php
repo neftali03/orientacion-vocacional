@@ -52,4 +52,63 @@ class CareerController extends Controller
 
         return view('degree.degree', compact('groupedCareers', 'search'));
     }
+    public function create()
+    {
+        $query = '
+            query {
+                itcaSchools {
+                    id
+                    name
+                }
+            }
+        ';
+
+        $response = $this->hasura->query($query);
+
+        if (isset($response['errors'])) {
+            Log::error('Error al obtener escuelas desde Hasura:', $response['errors']);
+            return redirect()->route('degree')->with('error', 'No se pudieron cargar las escuelas.');
+        }
+
+        $schools = $response['data']['itcaSchools'] ?? [];
+
+        return view('degree.crud_degree.create', compact('schools'));
+    }
+    public function storeCareer(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'school_id' => 'required|uuid',
+        ]);
+
+        $createdBy = session('hasura_user_id');
+
+        $mutation = '
+            mutation insertCareersOne($object: CareersInsertInput!) {
+                insertCareersOne(object: $object) {
+                    id
+                }
+            }
+        ';
+
+        $variables = [
+            'object' => [
+                'name' => $validated['name'],
+                'description' => $validated['description'] ?? null,
+                'schoolId' => $validated['school_id'],
+                'createdBy' => $createdBy,
+                'active' => true,
+            ],
+        ];
+
+        $response = $this->hasura->query($mutation, $variables);
+
+        if (isset($response['errors'])) {
+            Log::error('Error al crear carrera en Hasura:', $response['errors']);
+            return redirect()->route('degree.create')->with('error', 'Hubo un problema al crear la carrera.');
+        }
+
+        return redirect()->route('degree')->with('success', 'Carrera creada exitosamente.');
+    }
 }
