@@ -15,11 +15,12 @@ Route::middleware(['auth', 'hasura.user'])->group(function () {
   Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test');
   Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save');
   Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados']);
-  
+
   Route::get('/degree', [CareerController::class, 'showCareers'])->name('degree');
   Route::get('/degree/create', [CareerController::class, 'create'])->name('degree.create');
   Route::post('/degree/list', [CareerController::class, 'storeCareer'])->name('degree.list');
   Route::get('/degree/list', [CareerController::class, 'listAllCareers'])->name('degree.list');
+  Route::get('/degree/{id}', [CareerController::class, 'detailsCareer'])->name('degree.details');
 });
 
 /*Route::get('/', function () {

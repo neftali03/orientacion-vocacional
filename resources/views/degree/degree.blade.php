@@ -3,8 +3,8 @@
 @php
     $breadcrumbs = [
         ['title' => 'Orientación Vocacional', 'url' => route('index')],
+        ['title' => 'Carreras'],
     ];
-    $pageTitle = 'Carreras';
 @endphp
 
 @section('content')

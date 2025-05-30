@@ -138,4 +138,38 @@ class CareerController extends Controller
 
         return view('degree.crud_degree.list', compact('careers'));
     }
+    public function detailsCareer($id)
+    {
+        $query = '
+        query GetCareer($id: uuid!) {
+            careersByPk(id: $id) {
+                id
+                name
+                description
+                active
+                itcaSchool {
+                    id
+                    name
+                }
+            }
+        }
+    ';
+
+        $variables = ['id' => $id];
+
+        $response = $this->hasura->query($query, $variables);
+
+        if (isset($response['errors'])) {
+            Log::error('Error al obtener detalle de la carrera:', $response['errors']);
+            return redirect()->route('degree.list')->with('error', 'No se pudo cargar la información de la carrera.');
+        }
+
+        $career = $response['data']['careersByPk'] ?? null;
+
+        if (!$career) {
+            return redirect()->route('degree.list')->with('error', 'Carrera no encontrada.');
+        }
+
+        return view('degree.crud_degree.details', compact('career'));
+    }
 }

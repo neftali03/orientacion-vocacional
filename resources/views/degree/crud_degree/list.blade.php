@@ -3,7 +3,7 @@
 @php
     $breadcrumbs = [
         ['title' => 'Orientación Vocacional', 'url' => route('index')],
-        ['title' => 'Lista'],
+        ['title' => 'Lista de carreras'],
     ];
 @endphp
 
@@ -47,7 +47,11 @@
         <tbody>
             @forelse($careers as $career)
                 <tr>
-                    <td>{{ $career['id'] }}</td>
+                    <td>
+                        <a href="{{ route('degree.details', $career['id']) }}">
+                            {{ $career['id'] }}
+                        </a>
+                    </td>
                     <td>{{ $career['name'] }}</td>
                     <td>{{ $career['itcaSchool']['name'] ?? 'No asignada' }}</td>
                     <td>{{ $career['active'] ? 'Activo' : 'Inactivo' }}</td>
