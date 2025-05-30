@@ -67,7 +67,7 @@ class CareerController extends Controller
 
         if (isset($response['errors'])) {
             Log::error('Error al obtener escuelas desde Hasura:', $response['errors']);
-            return redirect()->route('degree')->with('error', 'No se pudieron cargar las escuelas.');
+            return redirect()->route('degree.list')->with('error', 'No se pudieron cargar las escuelas.');
         }
 
         $schools = $response['data']['itcaSchools'] ?? [];
@@ -109,6 +109,33 @@ class CareerController extends Controller
             return redirect()->route('degree.create')->with('error', 'Hubo un problema al crear la carrera.');
         }
 
-        return redirect()->route('degree')->with('success', 'Carrera creada exitosamente.');
+        return redirect()->route('degree.list')->with('success', 'Carrera creada exitosamente.');
+    }
+    public function listAllCareers()
+    {
+        $query = '
+            query {
+                careers(where: {active: {_eq: true}}) {
+                    id
+                    name
+                    active
+                    itcaSchool {
+                        id
+                        name
+                    }
+                }
+            }
+        ';
+
+        $response = $this->hasura->query($query);
+
+        if (isset($response['errors'])) {
+            Log::error('Error al obtener carreras (listado completo) desde Hasura:', $response['errors']);
+            return redirect()->back()->with('error', 'No se pudieron cargar las carreras.');
+        }
+
+        $careers = $response['data']['careers'] ?? [];
+
+        return view('degree.crud_degree.list', compact('careers'));
     }
 }

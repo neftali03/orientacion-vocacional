@@ -3,7 +3,7 @@
 @php
     $breadcrumbs = [
         ['title' => 'Orientación Vocacional', 'url' => route('index')],
-        ['title' => 'Carreras', 'url' => route('degree')],
+        ['title' => 'Carreras', 'url' => route('degree.list')],
         ['title' => 'Crear'],
     ];
 @endphp
@@ -21,7 +21,7 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('degree.store') }}">
+<form method="POST" action="{{ route('degree.list') }}">
     @csrf
 
     <div class="mb-3">
@@ -51,7 +51,7 @@
 
     <div class="d-flex gap-2 justify-content-end">
         <button type="submit" class="btn btn-orange">Crear</button>
-        <a href="{{ route('degree') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ route('degree.list') }}" class="btn btn-secondary">Cancelar</a>
     </div>
 </form>
 @endsection

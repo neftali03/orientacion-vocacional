@@ -9,14 +9,17 @@ use App\Http\Controllers\ResultadoController;
 
 Route::middleware(['auth', 'hasura.user'])->group(function () {
   Route::get('/', fn () => view('index'))->name('index');
-  Route::get('/degree', [CareerController::class, 'showCareers'])->name('degree');
+  
   Route::get('/questions', [QuestionsController::class, 'questions'])->name('questions');
   Route::view('/institution', 'institution.institution')->name('institution');
   Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test');
   Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save');
   Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados']);
+  
+  Route::get('/degree', [CareerController::class, 'showCareers'])->name('degree');
   Route::get('/degree/create', [CareerController::class, 'create'])->name('degree.create');
-  Route::post('/degree', [CareerController::class, 'storeCareer'])->name('degree.store');
+  Route::post('/degree/list', [CareerController::class, 'storeCareer'])->name('degree.list');
+  Route::get('/degree/list', [CareerController::class, 'listAllCareers'])->name('degree.list');
 });
 
 /*Route::get('/', function () {

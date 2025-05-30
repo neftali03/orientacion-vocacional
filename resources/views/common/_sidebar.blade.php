@@ -42,7 +42,7 @@
                  data-bs-parent="#sidebar-nav">
                 <div class="accordion-body bg-body py-0 px-0">
                     <div class="list-group list-group-flush w-100">
-                        <a href="{{ route('degree.create') }}" class="list-group-item list-group-item-action">✓ Carreras</a>
+                        <a href="{{ route('degree.list') }}" class="list-group-item list-group-item-action">✓ Carreras</a>
                     </div>
                 </div>
             </div>
