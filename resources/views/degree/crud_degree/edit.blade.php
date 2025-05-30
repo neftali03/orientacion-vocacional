@@ -9,7 +9,7 @@
 @endphp
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
 
     <div class="mb-4">
         <h3 class="fw-bold text-danger-emphasis">Editar Carrera</h3>
@@ -49,8 +49,12 @@
         </div>
 
         <div class="d-flex gap-2 justify-content-end">
-            <button type="submit" class="btn btn-warning">Actualizar</button>
-            <a href="{{ route('degree.list') }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-warning">
+                <i class="bi bi-pencil"></i> Editar
+            </button>
+            <a href="{{ route('degree.list') }}" class="btn btn-secondary">
+                <i class="bi bi-x-lg"></i> Cancelar
+            </a>
         </div>
 
     </form>

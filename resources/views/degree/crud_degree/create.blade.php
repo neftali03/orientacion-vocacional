@@ -15,16 +15,32 @@
 
 <div class="position-fixed top-0 start-0 p-3" style="z-index: 1100; max-width: 400px;">
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show shadow-sm w-100" role="alert">
-            <strong><i class="bi bi-check-circle me-1"></i></strong> {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast show bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-success text-white">
+                    <i class="bi bi-check-circle me-2"></i> 
+                    <strong class="me-auto">Orientación vocacional</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+                </div>
+                <div class="toast-body">
+                    {{ session('success') }}
+                </div>
+            </div>
         </div>
     @endif
 
     @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show shadow-sm w-100" role="alert">
-            <strong><i class="bi bi-exclamation-triangle me-1"></i></strong> {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast show bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-danger text-white">
+                    <i class="bi bi-x-circle me-2"></i> 
+                    <strong class="me-auto">Orientación vocacional</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+                </div>
+                <div class="toast-body">
+                    {{ session('error') }}
+                </div>
+            </div>
         </div>
     @endif
 </div>
@@ -58,8 +74,12 @@
     </div>
 
     <div class="d-flex gap-2 justify-content-end">
-        <button type="submit" class="btn btn-orange">Crear</button>
-        <a href="{{ route('degree.list') }}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-orange">
+            <i class="bi bi-plus-lg"></i> Crear
+        </button>
+        <a href="{{ route('degree.list') }}" class="btn btn-secondary">
+            <i class="bi bi-x-lg"></i> Cancelar
+        </a>
     </div>
 
 </form>
