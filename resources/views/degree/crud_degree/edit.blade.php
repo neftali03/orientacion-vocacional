@@ -1,11 +1,31 @@
 @extends('layouts.base')
 
+@php
+    $breadcrumbs = [
+        ['title' => 'Orientación Vocacional', 'url' => route('index')],
+        ['title' => 'Lista de carreras', 'url' => route('degree.list')],
+        ['title' => 'Editar'],
+    ];
+@endphp
+
 @section('content')
 <div class="container">
-    <h2>Editar Carrera</h2>
+
+    <div class="mb-4">
+        <h3 class="fw-bold text-danger-emphasis">Editar Carrera</h3>
+    </div>
+
     <form action="{{ route('degree.update', $career['id']) }}" method="POST">
         @csrf
         @method('PUT')
+
+        <div class="mb-3">
+            <label for="active" class="form-label">Estado</label>
+            <select name="active" id="active" class="form-control" required>
+                <option value="1" {{ $career['active'] ? 'selected' : '' }}>Activo</option>
+                <option value="0" {{ !$career['active'] ? 'selected' : '' }}>Inactivo</option>
+            </select>
+        </div>
 
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
@@ -28,8 +48,12 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Actualizar</button>
-        <a href="{{ route('degree.list') }}" class="btn btn-secondary">Cancelar</a>
+        <div class="d-flex gap-2 justify-content-end">
+            <button type="submit" class="btn btn-warning">Actualizar</button>
+            <a href="{{ route('degree.list') }}" class="btn btn-secondary">Cancelar</a>
+        </div>
+
     </form>
+
 </div>
 @endsection

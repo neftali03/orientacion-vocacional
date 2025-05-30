@@ -11,15 +11,23 @@
 @section('content')
 <div class="mb-4">
     <h3 class="fw-bold text-danger-emphasis">Crear carrera</h3>
-    <p>Completa el formulario para registrar una nueva carrera.</p>
 </div>
 
-@if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show shadow-sm w-100" role="alert">
-        <strong><i class="bi bi-exclamation-triangle me-1"></i></strong> {{ session('error') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-    </div>
-@endif
+<div class="position-fixed top-0 start-0 p-3" style="z-index: 1100; max-width: 400px;">
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show shadow-sm w-100" role="alert">
+            <strong><i class="bi bi-check-circle me-1"></i></strong> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm w-100" role="alert">
+            <strong><i class="bi bi-exclamation-triangle me-1"></i></strong> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+    @endif
+</div>
 
 <form method="POST" action="{{ route('degree.store') }}">
     @csrf
@@ -53,5 +61,6 @@
         <button type="submit" class="btn btn-orange">Crear</button>
         <a href="{{ route('degree.list') }}" class="btn btn-secondary">Cancelar</a>
     </div>
+
 </form>
 @endsection

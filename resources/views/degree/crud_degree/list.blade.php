@@ -8,10 +8,12 @@
 @endphp
 
 @section('content')
-<div class="mb-4">
-    <h3 class="fw-bold text-danger-emphasis">Lista de carreras</h3>
-</div>
-<div class="container">
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <h3 class="fw-bold text-danger-emphasis">Lista de carreras</h3>
+    </div>
+
     <div class="position-fixed top-0 start-0 p-3" style="z-index: 1100; max-width: 400px;">
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show shadow-sm w-100" role="alert">
@@ -28,20 +30,17 @@
         @endif
     </div>
 
-    <div class="mb-3 text-end">
+    <div class="mb-3 text-start">
         <a href="{{ route('degree.create') }}" class="btn btn-orange btn-md fw-bold">Crear</a>
     </div>
-    <div class="mb-3 text-end">
-        {{ count($careers) }} registros
-    </div>
-
-    <table class="table table-bordered">
+    
+    <table class="table table-bordered table-sm table-hover">
         <thead>
             <tr>
-                <th>Código</th>
-                <th>Carrera</th>
-                <th>Escuela</th>
-                <th>Estado</th>
+                <th class="text-secondary-emphasis bg-primary-subtle">Código</th>
+                <th class="text-secondary-emphasis bg-primary-subtle">Carrera</th>
+                <th class="text-secondary-emphasis bg-primary-subtle">Escuela</th>
+                <th class="text-secondary-emphasis bg-primary-subtle">Estado</th>
             </tr>
         </thead>
         <tbody>
@@ -49,12 +48,12 @@
                 <tr>
                     <td>
                         <a href="{{ route('degree.details', $career['id']) }}">
-                            {{ $career['id'] }}
+                            {{ strtoupper($career['id']) }}
                         </a>
                     </td>
                     <td>{{ $career['name'] }}</td>
                     <td>{{ $career['itcaSchool']['name'] ?? 'No asignada' }}</td>
-                    <td>{{ $career['active'] ? 'Activo' : 'Inactivo' }}</td>
+                    <td class="fw-bold {{ $career['active'] ? 'text-success' : 'text-danger' }}">{{ $career['active'] ? 'Activo' : 'Inactivo' }}</td>
                 </tr>
             @empty
                 <tr>
@@ -63,5 +62,10 @@
             @endforelse
         </tbody>
     </table>
+
+    <div class="mb-3 text-end">
+        {{ count($careers) }} registros
+    </div>
+
 </div>
 @endsection

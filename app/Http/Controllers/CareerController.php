@@ -115,7 +115,7 @@ class CareerController extends Controller
     {
         $query = '
             query {
-                careers(where: {active: {_eq: true}}) {
+                careers {
                     id
                     name
                     active
@@ -182,6 +182,7 @@ class CareerController extends Controller
                     name
                     description
                     schoolId
+                    active
                 }
                 itcaSchools {
                     id
@@ -210,6 +211,7 @@ class CareerController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'school_id' => 'required|uuid',
+            'active' => 'required|boolean',
         ]);
 
         $updatedBy = session('hasura_user_id');
@@ -228,6 +230,7 @@ class CareerController extends Controller
                 'name' => $validated['name'],
                 'description' => $validated['description'] ?? null,
                 'schoolId' => $validated['school_id'],
+                'active' => (bool) $validated['active'],
                 'updatedBy' => $updatedBy,
                 'updatedAt' => now()->toIso8601String(),
             ],
