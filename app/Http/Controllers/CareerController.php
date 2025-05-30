@@ -216,7 +216,7 @@ class CareerController extends Controller
 
         $mutation = '
             mutation updateCareers($id: uuid!, $changes: CareersSetInput!) {
-                updateCareersByPk(pk_columns: {id: $id}, _set: $changes) {
+                updateCareersByPk(pkColumns: {id: $id}, _set: $changes) {
                     id
                 }
             }
@@ -240,7 +240,7 @@ class CareerController extends Controller
             return redirect()->route('degree.edit', $id)->with('error', 'No se pudo actualizar la carrera.');
         }
 
-        return redirect()->route('degree.details', ['id' => $careerId])->with('success', 'Carrera actualizada exitosamente.');
+        return redirect()->route('degree.details', ['id' => $id])->with('success', 'Carrera actualizada exitosamente.');
     }
 
 }
