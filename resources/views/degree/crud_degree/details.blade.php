@@ -61,7 +61,7 @@
 
 
     <div class="d-flex gap-2 justify-content-end">
-        <a href="" class="btn btn-warning">Editar</a>
+        <a href="{{ route('degree.edit', $career['id']) }}" class="btn btn-warning">Editar</a>
         <a href="{{ route('degree.list') }}" class="btn btn-secondary">Cancelar</a>
     </div>
 </div>

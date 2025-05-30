@@ -172,4 +172,75 @@ class CareerController extends Controller
 
         return view('degree.crud_degree.details', compact('career'));
     }
+
+    public function editCareer($id)
+    {
+        $query = '
+            query ($id: uuid!) {
+                careersByPk(id: $id) {
+                    id
+                    name
+                    description
+                    schoolId
+                }
+                itcaSchools {
+                    id
+                    name
+                }
+            }
+        ';
+
+        $variables = ['id' => $id];
+
+        $response = $this->hasura->query($query, $variables);
+
+        if (isset($response['errors']) || !$response['data']['careersByPk']) {
+            \Log::error('Error al obtener datos para edición:', $response['errors'] ?? []);
+            return redirect()->route('degree.list')->with('error', 'No se pudo cargar la carrera.');
+        }
+
+        $career = $response['data']['careersByPk'];
+        $schools = $response['data']['itcaSchools'];
+
+        return view('degree.crud_degree.edit', compact('career', 'schools'));
+    }
+    public function updateCareer(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'school_id' => 'required|uuid',
+        ]);
+
+        $updatedBy = session('hasura_user_id');
+
+        $mutation = '
+            mutation updateCareers($id: uuid!, $changes: CareersSetInput!) {
+                updateCareersByPk(pk_columns: {id: $id}, _set: $changes) {
+                    id
+                }
+            }
+        ';
+
+        $variables = [
+            'id' => $id,
+            'changes' => [
+                'name' => $validated['name'],
+                'description' => $validated['description'] ?? null,
+                'schoolId' => $validated['school_id'],
+                'updatedBy' => $updatedBy,
+                'updatedAt' => now()->toIso8601String(),
+            ],
+        ];
+
+        $response = $this->hasura->query($mutation, $variables);
+
+        if (isset($response['errors'])) {
+            Log::error('Error al actualizar carrera en Hasura:', $response['errors']);
+            return redirect()->route('degree.edit', $id)->with('error', 'No se pudo actualizar la carrera.');
+        }
+
+        return redirect()->route('degree.details', ['id' => $careerId])->with('success', 'Carrera actualizada exitosamente.');
+    }
+
 }
