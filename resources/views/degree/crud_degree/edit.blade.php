@@ -48,6 +48,13 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <label for="portal_url" class="form-label">URL del portal</label>
+            <input type="url" id="portal_url" name="portal_url" class="form-control"
+                value="{{ old('portal_url', $career['portalUrl']) }}">
+            @error('portal_url') <small class="text-danger">{{ $message }}</small> @enderror
+        </div>
+
         <div class="d-flex gap-2 justify-content-end">
             <button type="submit" class="btn btn-warning">
                 <i class="bi bi-pencil"></i> Editar

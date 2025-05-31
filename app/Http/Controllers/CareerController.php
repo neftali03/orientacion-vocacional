@@ -184,6 +184,7 @@ class CareerController extends Controller
                     id
                     name
                     description
+                    portalUrl
                     schoolId
                     active
                 }
@@ -213,6 +214,7 @@ class CareerController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'portal_url' => 'nullable|url|max:255',
             'school_id' => 'required|uuid',
             'active' => 'required|boolean',
         ]);
@@ -232,6 +234,7 @@ class CareerController extends Controller
             'changes' => [
                 'name' => $validated['name'],
                 'description' => $validated['description'] ?? null,
+                'portalUrl' => $validated['portal_url'] ?? null,
                 'schoolId' => $validated['school_id'],
                 'active' => (bool) $validated['active'],
                 'updatedBy' => $updatedBy,
