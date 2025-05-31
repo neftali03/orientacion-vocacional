@@ -72,6 +72,18 @@
                 <th class="text-muted">Escuela</th>
                 <td>{{ $career['itcaSchool']['name'] ?? 'No asignada' }}</td>
             </tr>
+            <tr>
+                <th class="text-muted">Portal</th>
+                <td>
+                    @if (!empty($career['portalUrl']))
+                        <a href="{{ $career['portalUrl'] }}" target="_blank" class="text-decoration-none">
+                            <i class="bi bi-box-arrow-up-right me-2"></i>Ver carrera
+                        </a>
+                    @else
+                        <span class="text-muted">No disponible</span>
+                    @endif    
+                </td>
+            </tr>    
         </tbody>
     </table>
 

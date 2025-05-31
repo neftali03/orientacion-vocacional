@@ -24,6 +24,7 @@ class CareerController extends Controller
                     id
                     name
                     description
+                    portalUrl
                     itcaSchool {
                         id
                         name
@@ -80,6 +81,7 @@ class CareerController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'school_id' => 'required|uuid',
+            'portal_url' => 'nullable|url|max:255',
         ]);
 
         $createdBy = session('hasura_user_id');
@@ -97,6 +99,7 @@ class CareerController extends Controller
                 'name' => $validated['name'],
                 'description' => $validated['description'] ?? null,
                 'schoolId' => $validated['school_id'],
+                'portalUrl' => $validated['portal_url'] ?? null,
                 'createdBy' => $createdBy,
                 'active' => true,
             ],
@@ -146,6 +149,7 @@ class CareerController extends Controller
                 id
                 name
                 description
+                portalUrl
                 active
                 itcaSchool {
                     id
@@ -181,6 +185,7 @@ class CareerController extends Controller
                     id
                     name
                     description
+                    portalUrl
                     schoolId
                     active
                 }
@@ -210,6 +215,7 @@ class CareerController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'portal_url' => 'nullable|url|max:255',
             'school_id' => 'required|uuid',
             'active' => 'required|boolean',
         ]);
@@ -229,6 +235,7 @@ class CareerController extends Controller
             'changes' => [
                 'name' => $validated['name'],
                 'description' => $validated['description'] ?? null,
+                'portalUrl' => $validated['portal_url'] ?? null,
                 'schoolId' => $validated['school_id'],
                 'active' => (bool) $validated['active'],
                 'updatedBy' => $updatedBy,
