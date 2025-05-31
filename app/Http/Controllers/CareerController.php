@@ -68,7 +68,7 @@ class CareerController extends Controller
 
         if (isset($response['errors'])) {
             Log::error('Error al obtener escuelas desde Hasura:', $response['errors']);
-            return redirect()->route('degree.list')->with('error', 'No se pudieron cargar las escuelas.');
+            return redirect()->route('degree.list')->with('error', 'Hubo un problema al cargar las escuelas.');
         }
 
         $schools = $response['data']['itcaSchools'] ?? [];
@@ -134,7 +134,7 @@ class CareerController extends Controller
 
         if (isset($response['errors'])) {
             Log::error('Error al obtener carreras (listado completo) desde Hasura:', $response['errors']);
-            return redirect()->back()->with('error', 'No se pudieron cargar las carreras.');
+            return redirect()->back()->with('error', 'Hubo un problema al cargar la información de las carrera.');
         }
 
         $careers = $response['data']['careers'] ?? [];
@@ -165,13 +165,13 @@ class CareerController extends Controller
 
         if (isset($response['errors'])) {
             Log::error('Error al obtener detalle de la carrera:', $response['errors']);
-            return redirect()->route('degree.list')->with('error', 'No se pudo cargar la información de la carrera.');
+            return redirect()->route('degree.list')->with('error', 'Hubo un problema al cargar la información de la carrera.');
         }
 
         $career = $response['data']['careersByPk'] ?? null;
 
         if (!$career) {
-            return redirect()->route('degree.list')->with('error', 'Carrera no encontrada.');
+            return redirect()->route('degree.list')->with('error', 'Hubo un problema al cargar la información de la carrera.');
         }
 
         return view('degree.crud_degree.details', compact('career'));
@@ -202,7 +202,7 @@ class CareerController extends Controller
 
         if (isset($response['errors']) || !$response['data']['careersByPk']) {
             \Log::error('Error al obtener datos para edición:', $response['errors'] ?? []);
-            return redirect()->route('degree.list')->with('error', 'No se pudo cargar la carrera.');
+            return redirect()->route('degree.list')->with('error', 'Hubo un problema al cargar la información de la carrera.');
         }
 
         $career = $response['data']['careersByPk'];
@@ -247,7 +247,7 @@ class CareerController extends Controller
 
         if (isset($response['errors'])) {
             Log::error('Error al actualizar carrera en Hasura:', $response['errors']);
-            return redirect()->route('degree.edit', $id)->with('error', 'No se pudo actualizar la carrera.');
+            return redirect()->route('degree.edit', $id)->with('error', 'Hubo un problema al actualizar la carrera.');
         }
 
         return redirect()->route('degree.details', ['id' => $id])->with('success', 'Carrera actualizada exitosamente.');

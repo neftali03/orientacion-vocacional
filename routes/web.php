@@ -8,6 +8,7 @@ use App\Http\Controllers\HasuraTestController;
 use App\Http\Controllers\ResultadoController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\UserSurveyController;
 
 Route::get('/logout', LogoutController::class)->name('logout');
 
@@ -38,5 +39,8 @@ Route::middleware(['auth', 'hasura.user'])->group(function () {
 
     // DETAILS (va después del EDIT/UPDATE para evitar conflicto)
     Route::get('/degree/{id}/details', [CareerController::class, 'detailsCareer'])->name('degree.details');
+
+    Route::post('/user-survey/store', [UserSurveyController::class, 'store'])->name('user-survey.store');
+
 });
 
