@@ -18,7 +18,7 @@ class UserSurveyController extends Controller
 
     public function store(Request $request)
     {
-        $userId = session('hasura_user_id'); // o Auth::user()->id si está disponible
+        $userId = session('hasura_user_id');
         if (!$userId) {
             return response()->json(['error' => 'Usuario no autenticado o sin hasura_user_id'], 401);
         }
@@ -51,7 +51,7 @@ class UserSurveyController extends Controller
 
         if (isset($response['errors'])) {
             Log::error('Error al insertar encuesta en Hasura:', $response['errors']);
-            return redirect()->route('index')->with('error', 'Error al guardar la encuesta.');
+            return redirect()->route('index')->with('error', 'Ha ocurrido un error inesperado, por favor contacte al administrador.');
         }
 
         return redirect()->route('test')->with('success', 'Test de orientación vocacional.');
