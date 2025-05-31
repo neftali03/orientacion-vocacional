@@ -24,6 +24,7 @@ class CareerController extends Controller
                     id
                     name
                     description
+                    portalUrl
                     itcaSchool {
                         id
                         name

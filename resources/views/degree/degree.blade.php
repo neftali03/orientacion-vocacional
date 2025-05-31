@@ -56,9 +56,15 @@
                                         <figcaption class="blockquote-footer mt-auto">
                                             <cite title="Source Title">{{ $career['itcaSchool']['name'] ?? 'No asignada' }}</cite>
                                         </figcaption>
-                                        <a href="#" class="btn btn-orange mt-auto">
-                                            <i class="bi bi-eye"></i> Ver carrera
-                                        </a>
+                                        @if (!empty($career['portalUrl']))
+                                            <a href="{{ $career['portalUrl'] }}" class="btn btn-orange btn-sm text-decoration-none" target="_blank">
+                                                <i class="bi bi-eye me-2"></i>Ver carrera
+                                            </a>
+                                        @else    
+                                            <div class="btn btn-orange btn-sm text-decoration-none">
+                                                <i class="bi bi-eye me-2"></i>Sin enlace
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
