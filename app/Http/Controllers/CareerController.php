@@ -80,6 +80,7 @@ class CareerController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'school_id' => 'required|uuid',
+            'portal_url' => 'nullable|url|max:255',
         ]);
 
         $createdBy = session('hasura_user_id');
@@ -97,6 +98,7 @@ class CareerController extends Controller
                 'name' => $validated['name'],
                 'description' => $validated['description'] ?? null,
                 'schoolId' => $validated['school_id'],
+                'portalUrl' => $validated['portal_url'] ?? null,
                 'createdBy' => $createdBy,
                 'active' => true,
             ],
