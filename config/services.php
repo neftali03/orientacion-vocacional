@@ -34,5 +34,12 @@ return [
         'endpoint' => env('HASURA_ENDPOINT'),
         'admin_secret' => env('HASURA_ADMIN_SECRET'),
     ],
+    'auth0' => [
+        'domain' => env('AUTH0_DOMAIN'),
+        'client_id' => env('AUTH0_CLIENT_ID'),
+        'client_secret' => env('AUTH0_CLIENT_SECRET'),
+        'redirect_uri' => env('AUTH0_REDIRECT_URI'),
+        'logout_return_to' => env('AUTH0_LOGOUT_RETURN_TO'),
+    ],
 
 ];

@@ -6,6 +6,10 @@ use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\HasuraTestController;
 use App\Http\Controllers\ResultadoController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\LogoutController;
+
+Route::get('/logout', LogoutController::class)->name('logout');
 
 Route::middleware(['auth', 'hasura.user'])->group(function () {
     Route::get('/', fn () => view('index'))->name('index');
