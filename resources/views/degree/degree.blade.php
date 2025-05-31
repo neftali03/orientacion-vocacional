@@ -52,7 +52,7 @@
                                         <h6 class="fw-bold">{{ $career['name'] }}</h6>
                                     </div>
                                     <div class="card-body d-flex flex-column">
-                                        <p>{{ $career['description'] ?? 'Sin descripción' }}</p>
+                                        <p class="text-justify">{{ $career['description'] ?? 'Sin descripción' }}</p>
                                         <figcaption class="blockquote-footer mt-auto">
                                             <cite title="Source Title">{{ $career['itcaSchool']['name'] ?? 'No asignada' }}</cite>
                                         </figcaption>
