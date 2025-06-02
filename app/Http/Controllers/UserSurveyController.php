@@ -54,6 +54,36 @@ class UserSurveyController extends Controller
             return redirect()->route('index')->with('error', 'Ha ocurrido un error inesperado, por favor contacte al administrador.');
         }
 
+        $surveyId = $response['data']['insertUserSurveyOne']['id'];
+        session(['survey_id' => $surveyId]);
+
         return redirect()->route('test')->with('success', 'Test de orientación vocacional.');
+    }
+    public function deactivateSurvey()
+    {
+        $surveyId = session('survey_id');
+        if (!$surveyId) {
+            return response()->json(['error' => 'No hay encuesta activa'], 400);
+        }
+
+        $mutation = '
+            mutation DeactivateSurvey($id: uuid!) {
+                updateUserSurveyByPk(pkColumns: {id: $id}, _set: {active: false}) {
+                    id
+                    active
+                }
+            }
+        ';
+
+        $variables = ['id' => $surveyId];
+
+        $response = $this->hasura->query($mutation, $variables);
+
+        if (isset($response['errors'])) {
+            Log::error('Error al desactivar encuesta en Hasura:', $response['errors']);
+            return response()->json(['error' => 'No se pudo desactivar la encuesta'], 500);
+        }
+
+        return response()->json(['success' => true]);
     }
 }

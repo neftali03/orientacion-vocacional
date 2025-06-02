@@ -35,7 +35,7 @@ class HasuraTestController extends Controller
     {
         $questionId = $request->input('question_id');
         $selection = $request->input('selection');
-        // $surveyId = '00000000-0000-0000-0000-000000000001';
+        $surveyId = session('survey_id');
         $userId = session('hasura_user_id');
 
         $mutation = '
@@ -49,7 +49,7 @@ class HasuraTestController extends Controller
         $variables = [
             'input' => [
                 'questionId' => $questionId,
-                //'surveyId' => $surveyId,
+                'surveyId' => $surveyId,
                 'selection' => $selection,
                 'createdBy' => $userId,
                 // Opcional: 'createdAt' => now()->toIso8601String()

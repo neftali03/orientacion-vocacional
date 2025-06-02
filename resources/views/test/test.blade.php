@@ -87,7 +87,7 @@
 
         function showQuestion() {
             const questionText = document.getElementById('question-text');
-            questionText.textContent = ''; // Limpia texto anterior
+            questionText.textContent = '';
 
             if (currentQuestionIndex < questions.length) {
                 const q = questions[currentQuestionIndex];
@@ -100,14 +100,13 @@
                     } else {
                         clearInterval(typeWriter);
                     }
-                }, 15); // velocidad ajustable
+                }, 15);
 
             } else {
                 document.getElementById('question-container').style.display = 'none';
-
-                // Mostrar modal de finalización
                 const completionModal = new bootstrap.Modal(document.getElementById('completionModal'));
                 completionModal.show();
+                desactivarEncuesta();
             }
         }
 
@@ -158,30 +157,29 @@
             });
         }
 
-        showQuestion();
-        let userId = @json($hasuraUserId);
-        function handleFinalAccept() {
-            fetch('/enviar-user-id', {
-                method: 'POST',
+        function desactivarEncuesta() {
+            fetch("{{ route('user-survey.deactivate') }}", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                },
-                body: JSON.stringify({
-                    userId: userId
-                })
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
             })
-            .then(res => res.text()) // Laravel devuelve una vista HTML
-            .then(html => {
-                const newWindow = window.open('', '_blank'); // Puedes cambiar a "_self" si no quieres nueva pestaña
-                newWindow.document.write(html);
-                newWindow.document.close();
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Encuesta desactivada correctamente.");
+                } else {
+                    console.error("Error al desactivar encuesta:", data.error);
+                }
             })
             .catch(error => {
-                console.error('Error al enviar a Rasa:', error);
-                alert('No se pudo enviar el saludo.');
+                console.error("Error al enviar la solicitud:", error);
             });
         }
+
+        // Al cargar
+        document.addEventListener('DOMContentLoaded', showQuestion);
     </script>
 
 @endsection

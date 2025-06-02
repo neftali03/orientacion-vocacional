@@ -23,6 +23,7 @@ Route::middleware(['auth', 'hasura.user'])->group(function () {
     Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test');
     Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save');
     Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados']);
+    Route::post('/user-survey/deactivate', [UserSurveyController::class, 'deactivateSurvey'])->name('user-survey.deactivate');
 
     /* ******************************************** DEGREE USUARIO ******************************************** */
     Route::get('/degree', [CareerController::class, 'showCareers'])->name('degree');
