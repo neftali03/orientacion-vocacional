@@ -23,6 +23,29 @@ class UserSurveyController extends Controller
             return response()->json(['error' => 'Usuario no autenticado o sin hasura_user_id'], 401);
         }
 
+        $query = '
+            query CheckInactiveSurvey($userId: uuid!) {
+                userSurvey(where: {userId: {_eq: $userId}, active: {_eq: false}}, limit: 1) {
+                    id
+                    active
+                }
+            }
+        ';
+
+        $variables = ['userId' => $userId];
+        $checkResponse = $this->hasura->query($query, $variables);
+
+        if (isset($checkResponse['errors'])) {
+            Log::error('Error al verificar encuestas previas:', $checkResponse['errors']);
+            return redirect()->route('index')->with('error', 'Error al verificar el estado de la encuesta. Contacte al administrador.');
+        }
+
+        $inactiveSurvey = $checkResponse['data']['userSurvey'][0] ?? null;
+
+        if ($inactiveSurvey) {
+            return redirect()->route('index')->with('error', 'Ya has completado el test. No puedes volver a iniciarlo.');
+        }
+
         $mutation = '
             mutation InsertUserSurvey($object: UserSurveyInsertInput!) {
                 insertUserSurveyOne(object: $object) {
