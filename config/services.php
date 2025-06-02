@@ -41,5 +41,8 @@ return [
         'redirect_uri' => env('AUTH0_REDIRECT_URI'),
         'logout_return_to' => env('AUTH0_LOGOUT_RETURN_TO'),
     ],
-
+    'deepseek' => [
+        'key' => env('DEEPSEEK_API_KEY'),
+        'endpoint' => env('DEEPSEEK_API_URL'),
+    ],
 ];
