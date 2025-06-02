@@ -24,10 +24,12 @@ class UserSurveyController extends Controller
         }
 
         $query = '
-            query CheckInactiveSurvey($userId: uuid!) {
-                userSurvey(where: {userId: {_eq: $userId}, active: {_eq: false}}, limit: 1) {
+            query CheckExistingSurvey($userId: uuid!) {
+                inactive: userSurvey(where: {userId: {_eq: $userId}, active: {_eq: false}}, limit: 1) {
                     id
-                    active
+                }
+                active: userSurvey(where: {userId: {_eq: $userId}, active: {_eq: true}}, limit: 1) {
+                    id
                 }
             }
         ';
@@ -40,10 +42,14 @@ class UserSurveyController extends Controller
             return redirect()->route('index')->with('error', 'Error al verificar el estado de la encuesta. Contacte al administrador.');
         }
 
-        $inactiveSurvey = $checkResponse['data']['userSurvey'][0] ?? null;
+        $inactiveSurvey = $checkResponse['data']['inactive'][0] ?? null;
+        $activeSurvey = $checkResponse['data']['active'][0] ?? null;
 
         if ($inactiveSurvey) {
-            return redirect()->route('index')->with('error', 'Ya has completado el test. No puedes volver a iniciarlo.');
+            return redirect()->route('index')->with('error', 'Ya has completado tu evaluación. Si deseas volver a hacerla, debes contactar con el administrador.');
+        }
+        if ($activeSurvey) {
+            return redirect()->route('index')->with('error', 'Debe contactar con el administrador para que le reinicie la evaluación.');
         }
 
         $mutation = '
