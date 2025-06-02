@@ -23,6 +23,7 @@
             </main>
         </div>
     </div>
+    @include('common._toasts')
     <script src="{{ asset('js/base.js') }}" defer></script>
     @yield('scripts')
 </body>

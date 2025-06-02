@@ -8,39 +8,6 @@
 @endphp
 
 @section('content')
-
-    <div class="position-fixed top-0 start-0 p-3" style="z-index: 1100; max-width: 400px;">
-        @if(session('success'))
-            <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                <div id="liveToast" class="toast show bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header bg-success text-white">
-                        <i class="bi bi-check-circle me-2"></i> 
-                        <strong class="me-auto">Orientación vocacional</strong>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Cerrar"></button>
-                    </div>
-                    <div class="toast-body">
-                        {{ session('success') }}
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @if(session('error'))
-            <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                <div id="liveToast" class="toast show bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header bg-danger text-white">
-                        <i class="bi bi-x-circle me-2"></i> 
-                        <strong class="me-auto">Orientación vocacional</strong>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Cerrar"></button>
-                    </div>
-                    <div class="toast-body">
-                        {{ session('error') }}
-                    </div>
-                </div>
-            </div>
-        @endif
-    </div>
-
     <div class="d-flex flex-column gap-1">
         <h3 class="fw-bold text-danger-emphasis mb-0">Evaluación vocacional</h3>
     </div>
