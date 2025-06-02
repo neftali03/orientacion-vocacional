@@ -46,7 +46,7 @@ class UserSurveyController extends Controller
         $activeSurvey = $checkResponse['data']['active'][0] ?? null;
 
         if ($inactiveSurvey) {
-            return redirect()->route('index')->with('error', 'Ya has completado tu evaluación. Si deseas volver a hacerla, debes contactar con el administrador.');
+            return redirect()->route('index')->with('info', 'Evaluación finalizada. Contacta al administrador si deseas repetirla.');
         }
         if ($activeSurvey) {
             return redirect()->route('index')->with('error', 'Debe contactar con el administrador para que le reinicie la evaluación.');
@@ -86,7 +86,7 @@ class UserSurveyController extends Controller
         $surveyId = $response['data']['insertUserSurveyOne']['id'];
         session(['survey_id' => $surveyId]);
 
-        return redirect()->route('test')->with('success', 'Test de orientación vocacional.');
+        return redirect()->route('test')->with('success', 'Bienvenido a tu evaluación de orientación vocacional.');
     }
     public function deactivateSurvey()
     {
