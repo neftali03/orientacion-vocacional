@@ -19,35 +19,38 @@ Route::middleware(['auth', 'hasura.user'])->group(function () {
     Route::get('/questions', [QuestionsController::class, 'questions'])->name('questions');
     Route::view('/institution', 'institution.institution')->name('institution');
 
-    /* ********************************************* USUARIO TEST ********************************************* */
+
+
+
+    /* USUARIO INICIA TEST ***************************************************************************************************** */
+    Route::post('/user-survey/store', [UserSurveyController::class, 'store'])->name('user-survey.store');
     Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test');
     Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save');
-    Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados']);
     Route::post('/user-survey/deactivate', [UserSurveyController::class, 'deactivateSurvey'])->name('user-survey.deactivate');
+    Route::get('/deepseek/result', [DeepSeekController::class, 'resultadoDesdeRespuestas'])->name('deepseek.result');
 
-    /* ******************************************** DEGREE USUARIO ******************************************** */
+
+
+
+
+    /* DEGREE USUARIO ********************************************************************************************************** */
     Route::get('/degree', [CareerController::class, 'showCareers'])->name('degree');
 
-    /* ********************************************* DEGREE ADMIN ********************************************* */
-    
 
+
+
+    /* DEGREE ADMIN ************************************************************************************************************ */
     Route::get('/degree/create', [CareerController::class, 'create'])->name('degree.create');
     Route::post('/degree', [CareerController::class, 'storeCareer'])->name('degree.store');
-
-
     Route::get('/degree/list', [CareerController::class, 'listAllCareers'])->name('degree.list');
-
-
     Route::get('/degree/{id}/edit', [CareerController::class, 'editCareer'])->name('degree.edit');
     Route::put('/degree/{id}', [CareerController::class, 'updateCareer'])->name('degree.update');
-
-
     Route::get('/degree/{id}/details', [CareerController::class, 'detailsCareer'])->name('degree.details');
 
 
-    Route::post('/user-survey/store', [UserSurveyController::class, 'store'])->name('user-survey.store');
 
 
+    /* DeepSeek ***************************************************************************************************************** */
     // WORKING.
     Route::get('/deepseek-test', [DeepSeekController::class, 'test']);
 });
