@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\HasuraService;
 use App\Services\DeepSeekService;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class DeepSeekController extends Controller
 {
@@ -189,4 +190,93 @@ class DeepSeekController extends Controller
         ]);
     }
 
+    public function enviarResultados(Request $request)
+    {
+        $userId = session('hasura_user_id');
+
+        if (!$userId) {
+            return back()->withErrors(['error' => 'Sesión inválida.']);
+        }
+
+        $queryEmail = <<<GQL
+            query GetEmail(\$id: uuid!) {
+                usersByPk(id: \$id) {
+                    email
+                }
+            }
+        GQL;
+        $respEmail = $this->hasura->query($queryEmail, ['id' => $userId]);
+        $contactEmail = $respEmail['data']['usersByPk']['email'] ?? null;
+        
+        if (!$contactEmail) {
+            return back()->withErrors(['error' => 'No se encontró el correo del usuario.']);
+        }
+
+        // 2. Obtener ID de encuesta más reciente
+        $queryEncuesta = <<<GQL
+            query ObtenerEncuesta(\$userId: uuid!) {
+                userSurvey(where: {userId: {_eq: \$userId}}, limit: 1, orderBy: {createdAt: DESC}) {
+                    id
+                }
+            }
+        GQL;
+        $respEncuesta = $this->hasura->query($queryEncuesta, ['userId' => $userId]);
+        $userSurveyId = $respEncuesta['data']['userSurvey'][0]['id'] ?? null;
+
+        if (!$userSurveyId) {
+            return back()->withErrors(['error' => 'Encuesta no encontrada.']);
+        }
+
+        // 3. Obtener recomendaciones
+        $queryRecs = <<<GQL
+            query ObtenerRecs(\$surveyId: uuid!) {
+                userSurveyRecommendations(where: {userSurveyId: {_eq: \$surveyId}}) {
+                    career {
+                        name
+                        description
+                        portalUrl
+                    }
+                }
+            }
+        GQL;
+
+        $respRecs = $this->hasura->query($queryRecs, ['surveyId' => $userSurveyId]);
+        $careers = collect($respRecs['data']['userSurveyRecommendations'])->pluck('career')->all();
+
+        if (empty($careers)) {
+            return back()->withErrors(['error' => 'No hay recomendaciones para esta encuesta.']);
+        }
+
+        // 4. Enviar correo a dos destinatarios: usuario y copia
+        $copiaCorreo = env('VOCATIONAL_EMAIL_COPY');
+
+        Mail::send('emails.recomendaciones', ['careers' => $careers], function ($message) use ($contactEmail, $copiaCorreo) {
+            $message->to($contactEmail)
+                    ->cc($copiaCorreo)
+                    ->subject('Tus recomendaciones de carrera');
+        });
+
+        // 5. Guardar registro del envío en userSurveyMail
+        $mutation = <<<GQL
+            mutation InsertMailLog(\$obj: UserSurveyMailInsertInput!) {
+                insertUserSurveyMailOne(object: \$obj) {
+                    id
+                }
+            }
+        GQL;
+
+        $payload = [
+            'userSurveyId' => $userSurveyId,
+            'sendTries' => 1,
+            'mailSentStatus' => 'enviado',
+            'contactEmail' => $contactEmail,
+            'active' => true,
+            'createdBy' => $userId,
+        ];
+
+        $this->hasura->query($mutation, ['obj' => $payload]);
+
+        return back()->with('success', 'Correo enviado correctamente.');
+
+    }
 }

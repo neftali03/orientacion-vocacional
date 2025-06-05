@@ -42,4 +42,12 @@
         @endforeach
     </div>    
 </div>
+<div class="text-center my-4">
+    <form method="POST" action="{{ route('deepseek.enviarResultados') }}">
+        @csrf
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-envelope-fill me-1"></i> Enviar resultados por correo
+        </button>
+    </form>
+</div>
 @endsection
