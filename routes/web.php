@@ -28,6 +28,7 @@ Route::middleware(['auth', 'hasura.user'])->group(function () {
     Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save');
     Route::post('/user-survey/deactivate', [UserSurveyController::class, 'deactivateSurvey'])->name('user-survey.deactivate');
     Route::get('/deepseek/result', [DeepSeekController::class, 'resultadoDesdeRespuestas'])->name('deepseek.result');
+    Route::post('/deepseek/enviar-resultados', [DeepSeekController::class, 'enviarResultados'])->name('deepseek.enviarResultados');
 
 
 
