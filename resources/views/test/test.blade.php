@@ -147,6 +147,12 @@
 
         // Al cargar
         document.addEventListener('DOMContentLoaded', showQuestion);
+        document.addEventListener('DOMContentLoaded', () => {
+            const completionModal = document.getElementById('completionModal');
+            completionModal.addEventListener('hidden.bs.modal', () => {
+                window.location.href = "{{ route('deepseek.result') }}";
+            });
+        });
     </script>
 
 @endsection
