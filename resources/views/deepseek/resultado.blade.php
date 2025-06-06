@@ -70,20 +70,19 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toastContainer = document.getElementById('custom-loading-toast');
+        const btnEnviar = document.getElementById('btnEnviarResultado');
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const toastContainer = document.getElementById('custom-loading-toast');
-            const btnEnviar = document.getElementById('btnEnviarResultado');
+        btnEnviar.addEventListener('click', () => {
+            toastContainer.classList.remove('d-none');
 
-            btnEnviar.addEventListener('click', () => {
-                toastContainer.classList.remove('d-none');
-
-                // Ocultar después de 10 segundos
-                setTimeout(() => {
-                    toastContainer.classList.add('d-none');
-                }, 10000);
-            });
+            // Ocultar después de 30 segundos
+            setTimeout(() => {
+                toastContainer.classList.add('d-none');
+            }, 30000);
         });
-    </script> 
+    });
+</script> 
 @endsection
