@@ -2,7 +2,7 @@
 
 @php
     $breadcrumbs = [
-        ['title' => 'Orientación Vocacional', 'url' => route('index')],
+        ['title' => 'ITCA-FEPADE', 'url' => route('index')],
     ];
     $pageTitle = 'Resultados';
 @endphp

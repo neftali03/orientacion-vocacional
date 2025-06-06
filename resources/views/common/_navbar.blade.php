@@ -9,11 +9,11 @@
               aria-controls="sidebar">
         <i class="bi bi-list"></i>
       </button>
-      <a class="navbar-brand ms-2 text-white" href="{{ route('index') }}">
-        O.V.
+      <a class="navbar-brand ms-1 text-white fs-6" href="{{ route('index') }}">
+        Orientación vocacional
       </a>
     </div>
-    <div class="text-white px-3 py-2">
+    <div class="text-white px-5 py-1 ms-4">
       <x-breadcrumb :breadcrumbs="$breadcrumbs ?? []" :page-title="$pageTitle ?? ''" />
     </div>
     <div class="d-flex align-items-center ms-auto">
