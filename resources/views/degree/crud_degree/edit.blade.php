@@ -2,7 +2,7 @@
 
 @php
     $breadcrumbs = [
-        ['title' => 'Orientación Vocacional', 'url' => route('index')],
+        ['title' => 'Administrador', 'url' => route('index')],
         ['title' => 'Lista de carreras', 'url' => route('degree.list')],
         ['title' => 'Editar'],
     ];
