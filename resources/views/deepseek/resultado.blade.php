@@ -15,6 +15,14 @@
     </p>
 </div>
 <div class="container-fluid py-5">
+    <div class="text-end my-4">
+        <form method="POST" action="{{ route('deepseek.enviarResultados') }}">
+            @csrf
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-envelope-fill me-1"></i> Enviar resultados
+            </button>
+        </form>
+    </div>
     <div class="row">
         @foreach ($careers as $career)
             <div class="col-md-3 mb-4">
@@ -41,13 +49,5 @@
             </div>
         @endforeach
     </div>    
-</div>
-<div class="text-center my-4">
-    <form method="POST" action="{{ route('deepseek.enviarResultados') }}">
-        @csrf
-        <button type="submit" class="btn btn-primary">
-            <i class="bi bi-envelope-fill me-1"></i> Enviar resultados por correo
-        </button>
-    </form>
 </div>
 @endsection
