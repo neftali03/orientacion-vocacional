@@ -15,6 +15,14 @@
     </p>
 </div>
 <div class="container-fluid py-5">
+    <div class="text-end my-4">
+        <form method="POST" action="{{ route('deepseek.enviarResultados') }}">
+            @csrf
+            <button id="btnEnviarResultado" type="submit" class="btn btn-primary btn-sm">
+                <i class="bi bi-envelope me-1"></i> Enviar resultado
+            </button>
+        </form>
+    </div>
     <div class="row">
         @foreach ($careers as $career)
             <div class="col-md-3 mb-4">
@@ -42,12 +50,39 @@
         @endforeach
     </div>    
 </div>
-<div class="text-center my-4">
-    <form method="POST" action="{{ route('deepseek.enviarResultados') }}">
-        @csrf
-        <button type="submit" class="btn btn-primary">
-            <i class="bi bi-envelope-fill me-1"></i> Enviar resultados por correo
-        </button>
-    </form>
+<div id="custom-loading-toast" class="toast-container position-fixed bottom-0 end-0 p-3 d-none" style="z-index: 1100;">
+    <div id="toast-inner" class="toast text-white" style="background-color: #8B5CF6;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-white" style="background-color: #7C3AED;">
+            <div class="bg-white rounded p-1 me-2 d-flex align-items-center" style="width: 32px; height: 32px;">
+                <svg viewBox="0 0 64 64" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="20" width="44" height="32" rx="8" fill="#EDE9FE"/>
+                    <circle cx="22" cy="36" r="4" fill="#8B5CF6"/>
+                    <circle cx="42" cy="36" r="4" fill="#8B5CF6"/>
+                    <path d="M28 44h8" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M32 10v10" stroke="#4B5563" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <strong class="me-auto">Cargando</strong>
+        </div>
+        <div class="toast-body">
+            <div class="spinner-border spinner-border-sm text-light me-2" role="status"></div>
+            <span>Espere por favor...</span>
+        </div>
+    </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toastContainer = document.getElementById('custom-loading-toast');
+        const btnEnviar = document.getElementById('btnEnviarResultado');
+
+        btnEnviar.addEventListener('click', () => {
+            toastContainer.classList.remove('d-none');
+
+            // Ocultar después de 30 segundos
+            setTimeout(() => {
+                toastContainer.classList.add('d-none');
+            }, 30000);
+        });
+    });
+</script> 
 @endsection

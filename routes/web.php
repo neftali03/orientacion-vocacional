@@ -41,12 +41,14 @@ Route::middleware(['auth', 'hasura.user'])->group(function () {
 
 
     /* DEGREE ADMIN ************************************************************************************************************ */
-    Route::get('/degree/create', [CareerController::class, 'create'])->name('degree.create');
-    Route::post('/degree', [CareerController::class, 'storeCareer'])->name('degree.store');
-    Route::get('/degree/list', [CareerController::class, 'listAllCareers'])->name('degree.list');
-    Route::get('/degree/{id}/edit', [CareerController::class, 'editCareer'])->name('degree.edit');
-    Route::put('/degree/{id}', [CareerController::class, 'updateCareer'])->name('degree.update');
-    Route::get('/degree/{id}/details', [CareerController::class, 'detailsCareer'])->name('degree.details');
+    Route::middleware(['hasura.role:admin'])->group(function () {
+        Route::get('/degree/create', [CareerController::class, 'create'])->name('degree.create');
+        Route::post('/degree', [CareerController::class, 'storeCareer'])->name('degree.store');
+        Route::get('/degree/list', [CareerController::class, 'listAllCareers'])->name('degree.list');
+        Route::get('/degree/{id}/edit', [CareerController::class, 'editCareer'])->name('degree.edit');
+        Route::put('/degree/{id}', [CareerController::class, 'updateCareer'])->name('degree.update');
+        Route::get('/degree/{id}/details', [CareerController::class, 'detailsCareer'])->name('degree.details');
+    });
 
 
 

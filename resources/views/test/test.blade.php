@@ -27,6 +27,27 @@
             </div>
         </div>
     </div>
+    <div id="custom-loading-toast" class="toast-container position-fixed bottom-0 end-0 p-3 d-none" style="z-index: 1100;">
+        <div id="toast-inner" class="toast text-white" style="background-color: #8B5CF6;" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header text-white" style="background-color: #7C3AED;">
+                <div class="bg-white rounded p-1 me-2 d-flex align-items-center" style="width: 32px; height: 32px;">
+                    <!-- Ícono Robot Cargando -->
+                    <svg viewBox="0 0 64 64" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="20" width="44" height="32" rx="8" fill="#EDE9FE"/>
+                        <circle cx="22" cy="36" r="4" fill="#8B5CF6"/>
+                        <circle cx="42" cy="36" r="4" fill="#8B5CF6"/>
+                        <path d="M28 44h8" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M32 10v10" stroke="#4B5563" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <strong class="me-auto">Cargando</strong>
+            </div>
+            <div class="toast-body">
+                <div class="spinner-border spinner-border-sm text-light me-2" role="status"></div>
+                <span>Espere por favor...</span>
+            </div>
+        </div>
+    </div>
     <x-modal 
         id="welcomeModal"
         title="Información"
@@ -149,8 +170,19 @@
         document.addEventListener('DOMContentLoaded', showQuestion);
         document.addEventListener('DOMContentLoaded', () => {
             const completionModal = document.getElementById('completionModal');
+            const loadingToast = document.getElementById('custom-loading-toast');
+            const toastInner = document.getElementById('toast-inner');
+
             completionModal.addEventListener('hidden.bs.modal', () => {
-                window.location.href = "{{ route('deepseek.result') }}";
+                // Mostrar mensaje de carga con toast de Bootstrap
+                const toast = new bootstrap.Toast(toastInner, { autohide: false });
+                loadingToast.classList.remove('d-none');
+                toast.show();
+
+                // Redirigir luego de un breve delay
+                setTimeout(() => {
+                    window.location.href = "{{ route('deepseek.result') }}";
+                }, 300);
             });
         });
     </script>
