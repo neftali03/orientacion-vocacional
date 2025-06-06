@@ -27,6 +27,9 @@ class FetchHasuraUserId
                     users(where: {email: {_eq: $email}}) {
                         id
                         firstName
+                        role {
+                            name
+                        }
                     }
                 }
             ';
@@ -34,9 +37,11 @@ class FetchHasuraUserId
             $response = $this->hasura->query($query, $variables);
 
             if (isset($response['data']['users'][0]['id'])) {
+                $userData = $response['data']['users'][0];
                 session([
-                    'hasura_user_id' => $response['data']['users'][0]['id'],
-                    'hasura_user_first_name' => $response['data']['users'][0]['firstName'],
+                    'hasura_user_id' => $userData['id'],
+                    'hasura_user_first_name' => $userData['firstName'],
+                    'hasura_user_role' => $userData['role']['name'] ?? null,
                 ]);
             }else {
                 Log::warning("Usuario con email $email no encontrado en Hasura.");
