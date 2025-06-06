@@ -256,27 +256,61 @@ class DeepSeekController extends Controller
                     ->subject('Tus recomendaciones de carrera');
         });
 
-        // 5. Guardar registro del envío en userSurveyMail
-        $mutation = <<<GQL
-            mutation InsertMailLog(\$obj: UserSurveyMailInsertInput!) {
-                insertUserSurveyMailOne(object: \$obj) {
+         // 5. Validar si ya se envió anteriormente
+        $queryCheck = <<<GQL
+            query CheckExistingMail(\$surveyId: uuid!) {
+                userSurveyMail(where: {userSurveyId: {_eq: \$surveyId}}, limit: 1) {
                     id
+                    sendTries
                 }
             }
         GQL;
 
-        $payload = [
-            'userSurveyId' => $userSurveyId,
-            'sendTries' => 1,
-            'mailSentStatus' => 'enviado',
-            'contactEmail' => $contactEmail,
-            'active' => true,
-            'createdBy' => $userId,
-        ];
+        $respCheck = $this->hasura->query($queryCheck, ['surveyId' => $userSurveyId]);
+        $existingMail = $respCheck['data']['userSurveyMail'][0] ?? null;
 
-        $this->hasura->query($mutation, ['obj' => $payload]);
+        if ($existingMail) {
+            // Ya existe: actualizar sendTries
+            $updateMutation = <<<GQL
+                mutation UpdateMailLog(\$id: uuid!, \$tries: Int!) {
+                    updateUserSurveyMailByPk(pkColumns: {id: \$id}, _set: {sendTries: \$tries}) {
+                        id
+                        sendTries
+                    }
+                }
+            GQL;
+
+            $updateResponse = $this->hasura->query($updateMutation, [
+                'id' => $existingMail['id'],
+                'tries' => $existingMail['sendTries'] + 1,
+            ]);
+
+            Log::info('Actualizando intento de envío', ['response' => $updateResponse]);
+
+        } else {
+            // No existe: insertar nuevo
+            $insertMutation = <<<GQL
+                mutation InsertMailLog(\$obj: UserSurveyMailInsertInput!) {
+                    insertUserSurveyMailOne(object: \$obj) {
+                        id
+                    }
+                }
+            GQL;
+
+            $payload = [
+                'userSurveyId' => $userSurveyId,
+                'sendTries' => 1,
+                'mailSentStatus' => 'enviado',
+                'contactEmail' => $contactEmail,
+                'active' => true,
+                'createdBy' => $userId,
+            ];
+
+            Log::info('Enviando log de correo a Hasura', ['payload' => $payload]);
+            $insertResponse = $this->hasura->query($insertMutation, ['obj' => $payload]);
+            Log::info('Respuesta de Hasura al insertar correo', ['response' => $insertResponse]);
+        }
 
         return back()->with('success', 'Correo enviado correctamente.');
-
     }
 }
