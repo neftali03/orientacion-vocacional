@@ -43,6 +43,7 @@
                     <div class="accordion-body bg-body py-0 px-0">
                         <div class="list-group list-group-flush w-100">
                             <a href="{{ route('degree.list') }}" class="list-group-item list-group-item-action">✓ Carreras</a>
+                            <a href="{{ route('questions.list') }}" class="list-group-item list-group-item-action">✓ Preguntas</a>
                         </div>
                     </div>
                 </div>
