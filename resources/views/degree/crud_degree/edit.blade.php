@@ -12,7 +12,7 @@
 <div class="container-fluid">
 
     <div class="mb-4">
-        <h3 class="fw-bold text-danger-emphasis">Editar Carrera</h3>
+        <h3 class="fw-bold text-danger-emphasis">Editar carrera</h3>
     </div>
 
     <form action="{{ route('degree.update', $career['id']) }}" method="POST">

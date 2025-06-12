@@ -201,7 +201,7 @@ class CareerController extends Controller
         $response = $this->hasura->query($query, $variables);
 
         if (isset($response['errors']) || !$response['data']['careersByPk']) {
-            \Log::error('Error al obtener datos para edición:', $response['errors'] ?? []);
+            Log::error('Error al obtener datos para edición:', $response['errors'] ?? []);
             return redirect()->route('degree.list')->with('error', 'Hubo un problema al cargar la información de la carrera.');
         }
 
