@@ -12,7 +12,7 @@
     <h3 class="fw-bold text-danger-emphasis mb-0">Preguntas Frecuentes</h3>
     <p class="mb-0">
       Bienvenido a la sección de preguntas frecuentes. Si no encuentras lo que buscas,
-      puedes escribirnos al correo <strong>correoAdmin@itca.edu.sv</strong> y con gusto te atenderemos.
+      puedes escribirnos al correo <strong>administrador@itca.edu.sv</strong> y con gusto te atenderemos.
     </p>
 </div>
 <div class="accordion accordion-flush py-5" id="accordionFlushExample">
