@@ -11,39 +11,39 @@ class QuestionsController extends Controller
         $questions_answer = [
             [
                 "question" => "¿Cómo inicio la evaluación?",
-                "answer" => "Haz clic en el botón 'Iniciar'; de esa forma podrás comenzar tu orientación vocacional.",
+                "answer" => "Para comenzar la evaluación de orientación vocacional, haz clic en el botón 'Iniciar' que aparece en la pantalla principal.",
             ],
             [
                 "question" => "¿Puedo modificar mis respuestas?",
-                "answer" => "No. En caso de error, deberás contactar al administrador.",
+                "answer" => "No, las respuestas no pueden modificarse. Si cometiste un error, por favor contacta al administrador al correo: administrador@itca.edu.sv.",
             ],
             [
                 "question" => "¿Qué pasa si cierro sesión durante una evaluación?",
-                "answer" => "Deberás comenzar de nuevo tu evaluación vocacional.",
+                "answer" => "Si cierras sesión durante la evaluación, deberás contactar al administrador para que reinicie la prueba y puedas repetirla.",
             ],
             [
                 "question" => "¿La evaluación vocacional tiene límite de tiempo?",
-                "answer" => "No, la evaluación vocacional no tiene límite de tiempo. Sin embargo, te recomendamos realizarla en un ambiente tranquilo y sin distracciones.",
+                "answer" => "No, la evaluación vocacional no tiene un límite de tiempo. Sin embargo, te recomendamos realizarla en un ambiente tranquilo y sin distracciones para que puedas concentrarte mejor.",
             ],
             [
                 "question" => "¿A quién debo contactar si tengo algún problema?",
-                "answer" => "Si tienes algún problema, puedes contactar al administrador escribiendo a: correoAdmin@itca.edu.sv.",
+                "answer" => "En caso de presentar algún problema, por favor contacta al administrador al correo: administrador@itca.edu.sv.",
             ],
             [
-                "question" => "¿Por qué una contraseña temporal?",
-                "answer" => "Para garantizar la privacidad de los usuarios que utilizan este sitio web.",
-            ],
-            [
-                "question" => "¿Adónde se me enviarán mis resultados?",
+                "question" => "¿A dónde se enviarán mis resultados?",
                 "answer" => "Tus resultados serán enviados a tu correo electrónico.",
             ],
             [
                 "question" => "¿Debo pagar por utilizar este sitio web?",
-                "answer" => "No, el uso de esta aplicación es totalmente gratuito.",
+                "answer" => "No, el uso de esta aplicación es completamente gratuito.",
             ],
             [
                 "question" => "¿Las respuestas son de libre expresión?",
-                "answer" => "No, el sitio web está programado para que solo puedas contestar 'Sí' o 'No'.",
+                "answer" => "No, el sitio web está diseñado para que solo puedas responder con 'Sí' o 'No'.",
+            ],
+            [
+                "question" => "¿Al terminar mi evaluación puedo volver a hacerla?",
+                "answer" => "No. Si ya has realizado la evaluación y deseas volver a hacerla, debes contactar al administrador para analizar tu caso.",
             ],
         ];
         return view('questions.questions', compact('questions_answer'));
