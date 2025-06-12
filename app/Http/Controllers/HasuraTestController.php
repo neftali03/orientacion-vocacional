@@ -19,7 +19,7 @@ class HasuraTestController extends Controller
     {
         $query = '
             query {
-                questions {
+                questions(where: { active: { _eq: true } }) {
                     id
                     description
                 }
@@ -52,7 +52,6 @@ class HasuraTestController extends Controller
                 'surveyId' => $surveyId,
                 'selection' => $selection,
                 'createdBy' => $userId,
-                // Opcional: 'createdAt' => now()->toIso8601String()
             ]
         ];
 
