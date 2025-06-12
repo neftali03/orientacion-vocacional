@@ -32,6 +32,7 @@ Route::middleware(['auth', 'hasura.user'])->group(function () {
     /* DEGREE USER ******************************************************************************************************************* */
     Route::get('/degree', [CareerController::class, 'showCareers'])->name('degree');
 
+    /* ADMIN ************************************************************************************************************************* */
     Route::middleware(['hasura.role:admin'])->group(function () {
         /* DEGREE ADMIN ************************************************************************************************************** */
         Route::get('/degree/create', [CareerController::class, 'create'])->name('degree.create');
