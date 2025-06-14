@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg dx-bg-navbar py-1">
-  <div class="container-fluid ps-0">
+  <div class="container-fluid">
     <div class="d-flex flex-row dx-w-navbar fw-bold">
       <button type="button"
               class="btn border-0 text-white"
               data-bs-toggle="collapse"
               data-bs-target="#sidebar"
-              aria-expanded="false"
+              aria-expanded="true"
               aria-controls="sidebar">
         <i class="bi bi-list"></i>
       </button>
-      <a class="navbar-brand ms-1 text-white fs-6" href="{{ route('index') }}">
+      <a class="navbar-brand ms-2 text-white fs-6" href="{{ route('index') }}">
         Orientación vocacional
       </a>
     </div>
