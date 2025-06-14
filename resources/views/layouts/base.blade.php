@@ -18,8 +18,10 @@
                 @include('common._sidebar')
             </div>
             <main class="col px-3 py-3 py-md-2">
-                <h5 class="fw-bold mt-2 mb-4 text-primary-emphasis"></h5>
-                @yield('content')
+                <div class="table-responsive">
+                    <h5 class="fw-bold mt-2 mb-4 text-primary-emphasis"></h5>
+                    @yield('content')
+                </div>
             </main>
         </div>
     </div>

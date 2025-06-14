@@ -1,7 +1,6 @@
 @extends('layouts.base')
 
 @section('content')
-<div class="">
     <div class="container text-center py-4">
         <div class="row align-items-start">
             <div class="col-12 col-md-5 order-1 mt-5 py-5 d-flex justify-content-center">
@@ -29,5 +28,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
