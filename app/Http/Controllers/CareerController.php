@@ -57,7 +57,7 @@ class CareerController extends Controller
     {
         $query = '
             query {
-                itcaSchools {
+                itcaSchools(where: {active: {_eq: true}}) {
                     id
                     name
                 }
@@ -189,7 +189,7 @@ class CareerController extends Controller
                     schoolId
                     active
                 }
-                itcaSchools {
+                itcaSchools(where: {active: {_eq: true}}) {
                     id
                     name
                 }
