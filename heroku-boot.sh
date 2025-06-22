@@ -1,8 +1,7 @@
 #!/bin/sh
 
 # Ensure writable directories
-mkdir -p storage/framework/cache storage/framework/views storage/logs bootstrap/cache
-
+mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache storage/logs bootstrap/cache
 # Set permissions
 chmod -R 775 storage bootstrap/cache
 
