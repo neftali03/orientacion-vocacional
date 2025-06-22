@@ -53,14 +53,6 @@
     }
   },
   "scripts": {
-    "post-install-cmd": [
-      "@php artisan cache:clear",
-      "@php artisan config:clear",
-      "@php artisan view:clear",
-      "@php artisan route:clear",
-      "mkdir -p storage/framework/views storage/framework/cache storage/logs bootstrap/cache",
-      "chmod -R 775 storage bootstrap/cache"
-    ],
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
       "@php artisan package:discover --ansi"
@@ -73,7 +65,14 @@
     ],
     "post-create-project-cmd": [
       "@php artisan key:generate --ansi"
-    ]
+    ],"post-install-cmd": [
+      "@php artisan cache:clear",
+      "@php artisan config:clear",
+      "@php artisan view:clear",
+      "@php artisan route:clear",
+      "mkdir -p storage/framework/views storage/framework/cache storage/logs bootstrap/cache",
+      "chmod -R 775 storage bootstrap/cache"
+    ],
   },
   "extra": {
     "laravel": {
