@@ -13,4 +13,3 @@ php artisan view:clear
 
 # Start the web server
 exec vendor/bin/heroku-php-apache2 public/
-# Note: The above command assumes you have the Heroku PHP buildpack installed.
