@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="d-flex flex-column gap-1">
-        <h3 class="fw-bold text-danger-emphasis mb-0">Intitución</h3>
+        <h3 class="fw-bold text-danger-emphasis mb-0">Institución</h3>
         <p class="mb-0">
            Bienvenido a la sección de la institución, donde encontrarás información importante sobre nosotros.
         </p>
@@ -22,13 +22,13 @@
                     <h3 class="fw-bold text-danger-emphasis mb-0">¿Quiénes Somos?</h3>
                 </div>
                 <p>
-                    La Escuela Especializada en Ingeniería ITCA-FEPADE cuenta con una reconocida trayectoria académica, camino sustentado por el esfuerzo y la visión que dio paso a la concretización de su objetivo de fundación: impulsar la capacitación y el recurso humano de El Salvador. 
+                    La Escuela Especializada en Ingeniería ITCA-FEPADE cuenta con una reconocida trayectoria académica, camino sustentado por el esfuerzo y la visión que dieron paso a la concreción de su objetivo de fundación: impulsar la capacitación del recurso humano de El Salvador. 
                 </p>
                 <p>
-                    Estamos comprometidos con la calidad académica, la empresarialidad y la pertinencia de nuestra oferta educativa, por ello, hemos desarrollado un modelo educativo que se caracteriza en la constante innovación del sistema de enseñanza aprendizaje, en la actualización de la tecnología y la formación del personal docente, con el fin que nuestros estudiantes obtengan las mejores oportunidades en el mercado laboral. 
+                    Estamos comprometidos con la calidad académica, la empresarialidad y la pertinencia de nuestra oferta educativa, por ello, hemos desarrollado un modelo educativo que se caracteriza por la constante innovación del sistema de enseñanza-aprendizaje, en la actualización de la tecnología y la formación del personal docente, con el fin de que nuestros estudiantes obtengan las mejores oportunidades en el mercado laboral. 
                 </p>
                 <p>
-                    Día a día seguimos viendo más allá de las adversidades y nos comprometemos a trabajar en pro de la educación, orientada a la empleabilidad y la productividad, porque solo con una educación de calidad podemos garantizar el progreso de nuestro país. 
+                    Día a día, seguimos viendo más allá de las adversidades y nos comprometemos a trabajar en pro de la educación, orientada a la empleabilidad y la productividad, porque solo con una educación de calidad podemos garantizar el progreso de nuestro país. 
                 </p>
                 <div class="py-4">
                     <a href="https://www.youtube.com/embed/tY-G01WADnY?si=ZwgN8df_p5uKBtop" target="_blank" class="btn btn-primary">
