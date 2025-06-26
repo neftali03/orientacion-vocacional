@@ -64,7 +64,7 @@
             title="Información"
             :message="
                 '
-                    <strong>¡Enhorabuena!</strong> Has terminado tu evaluación de orientación vocacional.
+                    <strong>¡Enhorabuena!</strong> Has completado tu evaluación de orientación vocacional.
                 '
             "
             buttonText="Aceptar" 

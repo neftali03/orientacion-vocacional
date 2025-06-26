@@ -18,8 +18,8 @@
     <div class="text-end my-4">
         <form method="POST" action="{{ route('deepseek.enviarResultados') }}">
             @csrf
-            <button id="btnEnviarResultado" type="submit" class="btn btn-primary btn-sm">
-                <i class="bi bi-envelope me-1"></i> Enviar resultado
+            <button id="btnEnviarResultado" type="submit" class="btn btn-info">
+                <i class="bi bi-send me-1"></i> Enviar resultado
             </button>
         </form>
     </div>
