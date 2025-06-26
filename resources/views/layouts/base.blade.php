@@ -26,6 +26,7 @@
         </div>
     </div>
     @include('common._toasts')
+    @stack('modals')
     <script src="{{ secure_asset('js/base.js') }}" defer></script>
     @yield('scripts')
 </body>

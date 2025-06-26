@@ -48,26 +48,28 @@
             </div>
         </div>
     </div>
-    <x-modal 
-        id="welcomeModal"
-        title="Información"
-        :message="
-            '
-                A continuación, se te harán una serie de preguntas en las que deberás responder con <strong>Sí</strong> o <strong>No</strong>.<br>¡Suerte!
-            '
-        "
-        buttonText="Aceptar" 
-    />
-    <x-modal 
-        id="completionModal"
-        title="Información"
-        :message="
-            '
-                <strong>¡Enhorabuena!</strong> Has terminado tu test.
-            '
-        "
-        buttonText="Aceptar" 
-    />
+    @push('modals')
+        <x-modal 
+            id="welcomeModal"
+            title="Información"
+            :message="
+                '
+                    A continuación, se te harán una serie de preguntas en las que deberás responder con <strong>Sí</strong> o <strong>No</strong>.<br>¡Suerte!
+                '
+            "
+            buttonText="Aceptar" 
+        />
+        <x-modal 
+            id="completionModal"
+            title="Información"
+            :message="
+                '
+                    <strong>¡Enhorabuena!</strong> Has terminado tu test.
+                '
+            "
+            buttonText="Aceptar" 
+        />
+    @endpush
 
     <script>
         let questions = @json($questions);
