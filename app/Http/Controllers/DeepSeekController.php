@@ -72,16 +72,18 @@ class DeepSeekController extends Controller
         // Paso 3: Construir prompt para DeepSeek
         $puntajesTexto = collect($categoryScores)->map(fn ($score, $cat) => "- $cat: $score puntos")->implode("\n");
         $prompt = <<<TEXT
-    Basado en estas puntuaciones CHASIDE:
-    $puntajesTexto
+            Basado en estas puntuaciones CHASIDE:
+            $puntajesTexto
 
-    Y esta lista de carreras activas:
-    $careerList
+            Y esta lista de carreras activas:
+            $careerList
 
-    Por favor, solo responde con un arreglo JSON válido con exactamente 3 UUID (strings) de las carreras recomendadas, sin texto adicional, sin comentarios ni formato Markdown. 
-    Ejemplo: ["uuid1", "uuid2", "uuid3"]
-    No incluyas nada más.
-    TEXT;
+            Devuélveme las 3 carreras que más se asocian al usuario en función de las puntuaciones más altas obtenidas en CHASIDE.
+
+            Por favor, solo responde con un arreglo JSON válido con exactamente 3 UUID (strings). Sin texto adicional, sin comentarios ni formato Markdown. 
+            Ejemplo: ["uuid1", "uuid2", "uuid3"]
+            No incluyas nada más.
+            TEXT;
 
         $deepSeekResponse = $deepSeek->chat([
             ['role' => 'user', 'content' => $prompt]
@@ -91,7 +93,7 @@ class DeepSeekController extends Controller
         Log::info('Respuesta de DeepSeek:', ['raw' => $uuidJsonRaw]);
 
         $careerNombres = $this->extraerJsonArray($uuidJsonRaw);
-
+        
         if (!$careerNombres) {
             Log::error('Respuesta de DeepSeek no es un JSON válido:', ['respuesta' => $uuidJsonRaw]);
             return response()->json(['error' => 'Formato inesperado en la respuesta de DeepSeek.'], 500);
@@ -106,6 +108,10 @@ class DeepSeekController extends Controller
         if (count($careerUuids) !== 3) {
             return response()->json(['error' => 'No se pudieron traducir todas las carreras.'], 400);
         }
+
+        Log::info('Puntajes CHASIDE del usuario:', $categoryScores);
+        Log::info('Carreras activas disponibles:', $careerMap->toArray());
+        Log::info('Prompt enviado a DeepSeek:', ['prompt' => $prompt]);
 
         // Paso 4: Obtener encuesta del usuario
         $querySurvey = <<<GQL
