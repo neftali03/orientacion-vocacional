@@ -189,7 +189,7 @@ class CareerController extends Controller
                     schoolId
                     active
                 }
-                itcaSchools(where: {active: {_eq: true}}) {
+                itcaSchools{
                     id
                     name
                 }
@@ -217,10 +217,35 @@ class CareerController extends Controller
             'description' => 'nullable|string',
             'portal_url' => 'nullable|url|max:255',
             'school_id' => 'required|uuid',
-            'active' => 'required|boolean',
+            'active' => 'required',
         ]);
 
+        $newActive = filter_var($validated['active'], FILTER_VALIDATE_BOOLEAN);
         $updatedBy = session('hasura_user_id');
+
+        if ($newActive) {
+            $schoolQuery = '
+                query ($id: uuid!) {
+                    itcaSchoolsByPk(id: $id) {
+                        id
+                        name
+                        active
+                    }
+                }
+            ';
+            $schoolVars = ['id' => $validated['school_id']];
+            $schoolResponse = $this->hasura->query($schoolQuery, $schoolVars);
+            if (isset($schoolResponse['errors']) || !$schoolResponse['data']['itcaSchoolsByPk']) {
+                Log::error('Error al verificar estado de la escuela antes de activar carrera:', $schoolResponse['errors'] ?? []);
+                return redirect()->route('degree.edit', $id)
+                    ->with('error', 'Hubo un problema al verificar la escuela asociada.');
+            }
+            $school = $schoolResponse['data']['itcaSchoolsByPk'];
+            if (!$school['active']) {
+                return redirect()->route('degree.edit', $id)
+                    ->with('error', 'No se puede activar esta carrera porque la escuela asociada está inactiva.');
+            }
+        }
 
         $mutation = '
             mutation updateCareers($id: uuid!, $changes: CareersSetInput!) {
@@ -237,7 +262,7 @@ class CareerController extends Controller
                 'description' => $validated['description'] ?? null,
                 'portalUrl' => $validated['portal_url'] ?? null,
                 'schoolId' => $validated['school_id'],
-                'active' => (bool) $validated['active'],
+                'active' => $newActive,
                 'updatedBy' => $updatedBy,
                 'updatedAt' => now()->toIso8601String(),
             ],
