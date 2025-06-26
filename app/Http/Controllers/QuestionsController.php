@@ -14,7 +14,7 @@ class QuestionsController extends Controller
                 "answer" => "Para comenzar la evaluación de orientación vocacional, haz clic en el botón 'Iniciar' que aparece en la pantalla principal.",
             ],
             [
-                "question" => "¿puedo modificar mis respuestas?",
+                "question" => "¿Puedo modificar mis respuestas?",
                 "answer" => "No, las respuestas no pueden modificarse. Si cometiste un error, por favor contacta al administrador enviando un correo a: administrador@itca.edu.sv.",
             ],
             [
