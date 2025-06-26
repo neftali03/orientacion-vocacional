@@ -32,8 +32,8 @@
         @error('category_id') <small class="text-danger">{{ $message }}</small> @enderror
     </div>
     <div class="mb-3">
-        <label for="question_number" class="form-label">Número de Pregunta</label>
-        <input type="number" id="question_number" name="question_number" class="form-control" value="{{ old('question_number') }}" placeholder="Ej: 1">
+        <label for="question_number" class="form-label">Número de pregunta</label>
+        <input type="number" id="question_number" name="question_number" class="form-control" value="{{ old('question_number') }}" placeholder="#">
         @error('question_number') <small class="text-danger">{{ $message }}</small> @enderror
     </div>
     <div class="d-flex gap-2 justify-content-end">

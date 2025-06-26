@@ -143,8 +143,40 @@ class SchoolsController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'active' => 'required|boolean',
+            'active' => 'required',
         ]);
+
+        $newActive = filter_var($validated['active'], FILTER_VALIDATE_BOOLEAN);
+
+        if (!$newActive) {
+            $checkQuery = '
+                query ($schoolId: uuid!) {
+                    careers(where: {schoolId: {_eq: $schoolId}, active: {_eq: true}}) {
+                        id
+                        name
+                    }
+                }
+            ';
+
+            $variablesCheck = ['schoolId' => $id];
+            $checkResponse = $this->hasura->query($checkQuery, $variablesCheck);
+
+            if (isset($checkResponse['errors'])) {
+                Log::error('Error al verificar carreras activas antes de desactivar escuela:', $checkResponse['errors']);
+                return redirect()->route('institution.edit', $id)
+                    ->with('error', 'Hubo un problema al verificar dependencias de la escuela.');
+            }
+
+            $activeCareers = $checkResponse['data']['careers'] ?? [];
+
+            if (!empty($activeCareers)) {
+                Log::info('Carreras activas encontradas al intentar desactivar la escuela:', $activeCareers);
+                return redirect()->route('institution.edit', $id)
+                    ->with('error', 'No se puede desactivar la escuela porque tiene carreras activas asociadas.');
+            }
+        }
+
+        $activeCareers = $checkResponse['data']['careers'] ?? [];
 
         $updatedBy = session('hasura_user_id');
 
@@ -161,7 +193,7 @@ class SchoolsController extends Controller
             'changes' => [
                 'name' => $validated['name'],
                 'description' => $validated['description'] ?? null,
-                'active' => (bool) $validated['active'],
+                'active' => $newActive,
                 'updatedBy' => $updatedBy,
                 'updatedAt' => now()->toIso8601String(),
             ],
