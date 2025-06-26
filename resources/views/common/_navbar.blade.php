@@ -13,7 +13,7 @@
         Orientación vocacional
       </a>
     </div>
-    <div class="text-white px-5 py-1 ms-4">
+    <div class="text-white px-5 py-1 ms-4 d-none d-lg-block">
       <x-breadcrumb :breadcrumbs="$breadcrumbs ?? []" :page-title="$pageTitle ?? ''" />
     </div>
     <div class="d-flex align-items-center ms-auto">
