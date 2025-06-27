@@ -29,7 +29,7 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Pregunta</label>
-            <textarea name="description" id="description" class="form-control">{{ $question['description'] }}</textarea>
+            <textarea name="description" id="description" class="form-control" required>{{ $question['description'] }}</textarea>
         </div>
 
         <div class="mb-3">
@@ -46,7 +46,7 @@
         <div class="mb-3">
             <label for="question_number" class="form-label">Número de Pregunta</label>
             <input type="number" id="question_number" name="question_number" class="form-control"
-                value="{{ old('question_number', $question['questionNumber']) }}">
+                value="{{ old('question_number', $question['questionNumber']) }}" required>
             @error('question_number') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 

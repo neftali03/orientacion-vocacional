@@ -16,7 +16,7 @@
     @csrf
     <div class="mb-3">
         <label for="description" class="form-label">Pregunta</label>
-        <textarea id="description" name="description" class="form-control">{{ old('description') }}</textarea>
+        <textarea id="description" name="description" class="form-control" required>{{ old('description') }}</textarea>
         @error('description') <small class="text-danger">{{ $message }}</small> @enderror
     </div>
     <div class="mb-3">
@@ -33,7 +33,7 @@
     </div>
     <div class="mb-3">
         <label for="question_number" class="form-label">Número de pregunta</label>
-        <input type="number" id="question_number" name="question_number" class="form-control" value="{{ old('question_number') }}" placeholder="#">
+        <input type="number" id="question_number" name="question_number" class="form-control" value="{{ old('question_number') }}" placeholder="#" required>
         @error('question_number') <small class="text-danger">{{ $message }}</small> @enderror
     </div>
     <div class="d-flex gap-2 justify-content-end">
