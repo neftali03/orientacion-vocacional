@@ -22,10 +22,6 @@
                 </td>
             </tr>
             <tr>
-                <th class="text-muted w-25">Código</th>
-                <td>{{ strtoupper($itcaSchools['id']) }}</td>
-            </tr>
-            <tr>
                 <th class="text-muted">Escuela</th>
                 <td>{{ $itcaSchools['name'] }}</td>
             </tr>

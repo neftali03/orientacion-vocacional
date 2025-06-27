@@ -20,21 +20,22 @@
     <table class="table table-bordered table-sm table-hover">
         <thead>
             <tr>
-                <th class="text-secondary-emphasis bg-primary-subtle">Código</th>
                 <th class="text-secondary-emphasis bg-primary-subtle">Escuela</th>
-                <th class="text-secondary-emphasis bg-primary-subtle">Estado</th>
+                <th class="text-center text-secondary-emphasis bg-primary-subtle">Estado</th>
+                <th class="text-center text-secondary-emphasis bg-primary-subtle">Acción</th>
             </tr>
         </thead>
         <tbody>
             @forelse($itcaSchools as $itcaSchool)
                 <tr>
-                    <td>
-                        <a href="{{ route('institution.details', $itcaSchool['id']) }}">
-                            {{ strtoupper($itcaSchool['id']) }}
+                    <td>{{ $itcaSchool['name'] }}</td>
+                    <td class="{{ $itcaSchool['active'] ? 'text-success' : 'text-danger' }} text-center">{{ $itcaSchool['active'] ? 'Activo' : 'Inactivo' }}</td>
+                    <td class="text-center">
+                        <a href="{{ route('institution.details', $itcaSchool['id']) }}"
+                           class="btn btn-info btn-sm d-inline-flex align-items-center gap-1">
+                            <i class="bi bi-eye-fill"></i>Ver
                         </a>
                     </td>
-                    <td>{{ $itcaSchool['name'] }}</td>
-                    <td class="{{ $itcaSchool['active'] ? 'text-success' : 'text-danger' }}">{{ $itcaSchool['active'] ? 'Activo' : 'Inactivo' }}</td>
                 </tr>
             @empty
                 <tr>

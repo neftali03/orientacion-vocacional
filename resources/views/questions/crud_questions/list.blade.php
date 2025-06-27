@@ -20,23 +20,24 @@
     <table class="table table-bordered table-sm table-hover">
         <thead>
             <tr>
-                <th class="text-secondary-emphasis bg-primary-subtle">Código</th>
                 <th class="text-secondary-emphasis bg-primary-subtle">Pregunta</th>
                 <th class="text-secondary-emphasis bg-primary-subtle">Categoría</th>
                 <th class="text-secondary-emphasis bg-primary-subtle">Estado</th>
+                <th class="text-secondary-emphasis bg-primary-subtle">Acción</th>
             </tr>
         </thead>
         <tbody>
             @forelse($questions as $question)
                 <tr>
-                    <td>
-                        <a href="{{ route('questions.details', $question['id']) }}">
-                            {{ strtoupper($question['id']) }}
-                        </a>
-                    </td>
                     <td>{{ $question['description'] }}</td>
                     <td>{{ $question['skillCategoryCatalog']['description'] ?? 'No asignada' }}</td>
                     <td class="{{ $question['active'] ? 'text-success' : 'text-danger' }}">{{ $question['active'] ? 'Activo' : 'Inactivo' }}</td>
+                    <td>
+                        <a href="{{ route('questions.details', $question['id']) }}"
+                           class="btn btn-info btn-sm d-inline-flex align-items-center gap-1">
+                            <i class="bi bi-eye-fill"></i>Ver
+                        </a>
+                    </td>
                 </tr>
             @empty
                 <tr>

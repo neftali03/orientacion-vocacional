@@ -19,7 +19,7 @@
                     <div class="list-group list-group-flush w-100">
                         <a href="{{ route('degree') }}" class="list-group-item list-group-item-action">✓ Carreras</a>
                         <a href="{{ route('institution') }}" class="list-group-item list-group-item-action">✓ Institución</a>
-                        <a href="{{ route('questions') }}" class="list-group-item list-group-item-action">✓ Preguntas</a>
+                        <a href="{{ route('questions') }}" class="list-group-item list-group-item-action">✓ Preguntas frecuentes</a>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                         <div class="list-group list-group-flush w-100">
                             <a href="{{ route('degree.list') }}" class="list-group-item list-group-item-action">✓ Carreras</a>
                             <a href="{{ route('institution.list') }}" class="list-group-item list-group-item-action">✓ Escuelas</a>
-                            <a href="{{ route('questions.list') }}" class="list-group-item list-group-item-action">✓ Preguntas</a>
+                            <a href="{{ route('questions.list') }}" class="list-group-item list-group-item-action">✓ Preguntas cuestionario</a>
                         </div>
                     </div>
                 </div>

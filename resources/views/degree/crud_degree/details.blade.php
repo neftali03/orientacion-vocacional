@@ -22,10 +22,6 @@
                 </td>
             </tr>
             <tr>
-                <th class="text-muted w-25">Código</th>
-                <td>{{ strtoupper($career['id']) }}</td>
-            </tr>
-            <tr>
                 <th class="text-muted">Nombre</th>
                 <td>{{ $career['name'] }}</td>
             </tr>

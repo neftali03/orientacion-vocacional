@@ -22,10 +22,6 @@
                 </td>
             </tr>
             <tr>
-                <th class="text-muted w-25">Código</th>
-                <td>{{ strtoupper($question['id']) }}</td>
-            </tr>
-            <tr>
                 <th class="text-muted">Número de Pregunta</th>
                 <td>
                     @if (!empty($question['questionNumber']))
