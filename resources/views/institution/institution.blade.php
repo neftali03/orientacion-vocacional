@@ -34,21 +34,23 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videoModal">
                         <i class="bi bi-play-circle"></i> Video institucional
                     </button>
-                    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content bg-dark">
-                                <div class="modal-header border-0">
-                                    <h5 class="modal-title text-white" id="videoModalLabel">ITCA-FEPADE</h5>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                                </div>
-                                <div class="modal-body p-0">
-                                    <div class="ratio ratio-16x9">
-                                        <iframe id="videoFrame" src="" title="Video institucional" allowfullscreen allow="autoplay"></iframe>
+                    @push('modals')
+                        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content bg-dark">
+                                    <div class="modal-header border-0">
+                                        <h5 class="modal-title text-white" id="videoModalLabel">ITCA-FEPADE</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                    </div>
+                                    <div class="modal-body p-0">
+                                        <div class="ratio ratio-16x9">
+                                            <iframe id="videoFrame" src="" title="Video institucional" allowfullscreen allow="autoplay"></iframe>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endpush
                 </div>
             </div>
         </div>
