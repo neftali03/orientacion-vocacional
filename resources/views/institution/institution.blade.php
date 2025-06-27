@@ -31,9 +31,24 @@
                     Día a día, seguimos viendo más allá de las adversidades y nos comprometemos a trabajar en pro de la educación, orientada a la empleabilidad y la productividad, porque solo con una educación de calidad podemos garantizar el progreso de nuestro país. 
                 </p>
                 <div class="py-4">
-                    <a href="https://www.youtube.com/embed/tY-G01WADnY?si=ZwgN8df_p5uKBtop" target="_blank" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videoModal">
                         <i class="bi bi-play-circle"></i> Video institucional
-                    </a>
+                    </button>
+                    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content bg-dark">
+                                <div class="modal-header border-0">
+                                    <h5 class="modal-title text-white" id="videoModalLabel">ITCA-FEPADE</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body p-0">
+                                    <div class="ratio ratio-16x9">
+                                        <iframe id="videoFrame" src="" title="Video institucional" allowfullscreen allow="autoplay"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,4 +114,19 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const videoModal = document.getElementById('videoModal');
+            const videoFrame = document.getElementById('videoFrame');
+            const videoUrl = "https://www.youtube.com/embed/tY-G01WADnY?si=ZwgN8df_p5uKBtop";
+
+            videoModal.addEventListener('show.bs.modal', () => {
+                videoFrame.src = videoUrl + "&autoplay=1";
+            });
+
+            videoModal.addEventListener('hidden.bs.modal', () => {
+                videoFrame.src = "";
+            });
+        });
+    </script>
 @endsection
