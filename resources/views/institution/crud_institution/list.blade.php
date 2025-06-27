@@ -17,20 +17,23 @@
             <i class="bi bi-plus-lg"></i> Crear
         </a>
     </div>
+    <div class="mb-3 text-secondary small text-end">
+        {{ count($itcaSchools) }} registros
+    </div>
     <table class="table table-bordered table-sm table-hover">
         <thead>
             <tr>
                 <th class="text-secondary-emphasis bg-primary-subtle">Escuela</th>
-                <th class="text-center text-secondary-emphasis bg-primary-subtle">Estado</th>
-                <th class="text-center text-secondary-emphasis bg-primary-subtle">Acción</th>
+                <th class="text-secondary-emphasis bg-primary-subtle">Estado</th>
+                <th class="text-secondary-emphasis bg-primary-subtle">Acción</th>
             </tr>
         </thead>
         <tbody>
             @forelse($itcaSchools as $itcaSchool)
                 <tr>
                     <td>{{ $itcaSchool['name'] }}</td>
-                    <td class="{{ $itcaSchool['active'] ? 'text-success' : 'text-danger' }} text-center">{{ $itcaSchool['active'] ? 'Activo' : 'Inactivo' }}</td>
-                    <td class="text-center">
+                    <td class="{{ $itcaSchool['active'] ? 'text-success' : 'text-danger' }}">{{ $itcaSchool['active'] ? 'Activo' : 'Inactivo' }}</td>
+                    <td>
                         <a href="{{ route('institution.details', $itcaSchool['id']) }}"
                            class="btn btn-info btn-sm d-inline-flex align-items-center gap-1">
                             <i class="bi bi-eye-fill"></i>Ver
@@ -44,8 +47,5 @@
             @endforelse
         </tbody>
     </table>
-    <div class="mb-3 text-secondary small text-end">
-        {{ count($itcaSchools) }} registros
-    </div>
 </div>
 @endsection

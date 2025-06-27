@@ -17,6 +17,9 @@
             <i class="bi bi-plus-lg"></i> Crear
         </a>
     </div>
+    <div class="mb-3 text-secondary small text-end">
+        {{ count($questions) }} registros
+    </div>
     <table class="table table-bordered table-sm table-hover">
         <thead>
             <tr>
@@ -46,8 +49,5 @@
             @endforelse
         </tbody>
     </table>
-    <div class="mb-3 text-secondary small text-end">
-        {{ count($questions) }} registros
-    </div>
 </div>
 @endsection

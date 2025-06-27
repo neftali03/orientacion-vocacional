@@ -17,13 +17,16 @@
             <i class="bi bi-plus-lg"></i> Crear
         </a>
     </div>
+    <div class="mb-3 text-secondary small text-end">
+        {{ count($careers) }} registros
+    </div>
     <table class="table table-bordered table-sm table-hover">
         <thead>
             <tr>
                 <th class="text-secondary-emphasis bg-primary-subtle">Carrera</th>
                 <th class="text-secondary-emphasis bg-primary-subtle">Escuela</th>
                 <th class="text-secondary-emphasis bg-primary-subtle">Estado</th>
-                <th class="text-center text-secondary-emphasis bg-primary-subtle">Acción</th>
+                <th class="text-secondary-emphasis bg-primary-subtle">Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +35,7 @@
                     <td>{{ $career['name'] }}</td>
                     <td>{{ $career['itcaSchool']['name'] ?? 'No asignada' }}</td>
                     <td class="{{ $career['active'] ? 'text-success' : 'text-danger' }}">{{ $career['active'] ? 'Activo' : 'Inactivo' }}</td>
-                    <td class="text-center">
+                    <td>
                         <a href="{{ route('degree.details', $career['id']) }}"
                            class="btn btn-info btn-sm d-inline-flex align-items-center gap-1">
                             <i class="bi bi-eye-fill"></i>Ver
@@ -46,8 +49,5 @@
             @endforelse
         </tbody>
     </table>
-    <div class="mb-3 text-secondary small text-end">
-        {{ count($careers) }} registros
-    </div>
 </div>
 @endsection
