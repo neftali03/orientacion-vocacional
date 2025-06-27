@@ -78,7 +78,7 @@ class CareerController extends Controller
     public function storeCareer(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'regex:/^[\pL\s]+$/u', 'max:255'],
             'description' => 'nullable|string',
             'school_id' => 'required|uuid',
             'portal_url' => 'nullable|url|max:255',
@@ -213,7 +213,7 @@ class CareerController extends Controller
     public function updateCareer(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'regex:/^[\pL\s]+$/u', 'max:255'],
             'description' => 'nullable|string',
             'portal_url' => 'nullable|url|max:255',
             'school_id' => 'required|uuid',

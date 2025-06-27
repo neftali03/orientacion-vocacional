@@ -28,8 +28,8 @@
         </div>
     </div>
     <div id="custom-loading-toast" class="toast-container position-fixed bottom-0 end-0 p-3 d-none" style="z-index: 1100;">
-        <div id="toast-inner" class="toast text-white" style="background-color: #8B5CF6;" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header text-white" style="background-color: #7C3AED;">
+        <div id="toast-inner" class="toast text-white" style="background-color:rgb(96, 124, 250);" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header text-white" style="background-color:rgb(96, 106, 250);">
                 <div class="bg-white rounded p-1 me-2 d-flex align-items-center" style="width: 32px; height: 32px;">
                     <!-- Ícono Robot Cargando -->
                     <svg viewBox="0 0 64 64" width="24" height="24" xmlns="http://www.w3.org/2000/svg">

@@ -16,7 +16,7 @@
     @csrf
     <div class="mb-3">
         <label for="name" class="form-label">Nombre de la carrera</label>
-        <input type="text" id="name" name="name" class="form-control" required value="{{ old('name') }}">
+        <input type="text" id="name" name="name" class="form-control" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" required value="{{ old('name') }}">
         @error('name') <small class="text-danger">{{ $message }}</small> @enderror
     </div>
     <div class="mb-3">

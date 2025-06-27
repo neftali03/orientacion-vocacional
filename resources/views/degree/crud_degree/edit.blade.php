@@ -29,7 +29,7 @@
 
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ $career['name'] }}" required>
+            <input type="text" name="name" id="name" class="form-control" value="{{ $career['name'] }}" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" required>
         </div>
 
         <div class="mb-3">

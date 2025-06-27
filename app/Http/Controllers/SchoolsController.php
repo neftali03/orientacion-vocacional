@@ -23,7 +23,7 @@ class SchoolsController extends Controller
     public function storeSchools(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'regex:/^[\pL\s]+$/u', 'max:255'],
             'description' => 'nullable|string',
         ]);
 
@@ -141,7 +141,7 @@ class SchoolsController extends Controller
     public function updateSchool(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'regex:/^[\pL\s]+$/u', 'max:255'],
             'description' => 'nullable|string',
             'active' => 'required',
         ]);

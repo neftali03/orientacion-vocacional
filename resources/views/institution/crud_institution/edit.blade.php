@@ -29,7 +29,7 @@
 
         <div class="mb-3">
             <label for="name" class="form-label">Escuela</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ $itcaSchools['name'] }}" required>
+            <input type="text" name="name" id="name" class="form-control" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" value="{{ $itcaSchools['name'] }}" required>
         </div>
 
         <div class="mb-3">
