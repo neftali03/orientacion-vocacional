@@ -73,16 +73,22 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const toastContainer = document.getElementById('custom-loading-toast');
+        const toastInner = document.getElementById('toast-inner');
         const btnEnviar = document.getElementById('btnEnviarResultado');
+        const form = btnEnviar.closest('form');
 
-        btnEnviar.addEventListener('click', () => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const toast = new bootstrap.Toast(toastInner, { autohide: false });
             toastContainer.classList.remove('d-none');
+            toast.show();
 
-            // Ocultar después de 30 segundos
+            // Enviar formulario inmediatamente
             setTimeout(() => {
-                toastContainer.classList.add('d-none');
-            }, 30000);
+                form.submit();
+            }, 11000); // esto da tiempo suficiente para que el toast quede visible antes de que el navegador empiece el POST
         });
     });
-</script> 
+</script>
 @endsection
