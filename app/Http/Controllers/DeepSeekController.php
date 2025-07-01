@@ -106,6 +106,13 @@ class DeepSeekController extends Controller
             ->all();
 
         if (count($careerUuids) !== 3) {
+            Log::error('No se pudierón traducir las carreras.', [
+                'careerNombres' => $careerNombres,
+                'careerUuids' => $careerUuids,
+                'careerMap_keys' => $careerMap->keys()->all(),
+                'uuidJsonRaw' => $uuidJsonRaw,
+            ]);
+
             return response()->json(['error' => 'No se pudieron traducir todas las carreras.'], 400);
         }
 
@@ -124,6 +131,23 @@ class DeepSeekController extends Controller
 
         $surveyResponse = $this->hasura->query($querySurvey, ['userId' => $userId]);
         $userSurveyId = $surveyResponse['data']['userSurvey'][0]['id'] ?? null;
+
+        if ($userSurveyId) {
+            $updateMutation = <<<GQL
+                mutation GuardarDeepSeekResponse(\$id: uuid!, \$response: String!) {
+                    updateUserSurveyByPk(pkColumns: {id: \$id}, _set: {deepseekResponse: \$response}) {
+                        id
+                    }
+                }
+            GQL;
+
+            $this->hasura->query($updateMutation, [
+                'id' => $userSurveyId,
+                'response' => $uuidJsonRaw,
+            ]);
+        } else {
+            Log::warning('No se encontró encuesta para guardar la respuesta de DeepSeek');
+        }
 
         if (!$userSurveyId) {
             return response()->json(['error' => 'Encuesta no encontrada para el usuario.'], 404);
