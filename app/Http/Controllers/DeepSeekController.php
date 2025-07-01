@@ -75,7 +75,7 @@ class DeepSeekController extends Controller
             Basado en estas puntuaciones CHASIDE:
             $puntajesTexto
 
-            Y esta lista de carreras activas:
+            Y esta lista de carreras activas disponibles (elige solo desde esta lista):
             $careerList
 
             Devuélveme las 3 carreras que más se asocian al usuario en función de las puntuaciones más altas obtenidas en CHASIDE.
