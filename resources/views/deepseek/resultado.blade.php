@@ -84,10 +84,9 @@
             toastContainer.classList.remove('d-none');
             toast.show();
 
-            // Enviar formulario inmediatamente
             setTimeout(() => {
                 form.submit();
-            }, 11000); // esto da tiempo suficiente para que el toast quede visible antes de que el navegador empiece el POST
+            }, 11000);
         });
     });
 </script>
