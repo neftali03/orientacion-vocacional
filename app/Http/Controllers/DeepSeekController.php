@@ -102,18 +102,25 @@ class DeepSeekController extends Controller
         $careerUuids = collect($careerNombres)
             ->map(fn ($nombre) => $careerMap->get($nombre))
             ->filter()
+            ->take(3)
             ->values()
             ->all();
 
-        if (count($careerUuids) !== 3) {
-            Log::error('No se pudierón traducir las carreras.', [
+        if (count($careerUuids) === 0) {
+            Log::error('No se pudo traducir ninguna carrera recomendada por DeepSeek.', [
                 'careerNombres' => $careerNombres,
                 'careerUuids' => $careerUuids,
                 'careerMap_keys' => $careerMap->keys()->all(),
                 'uuidJsonRaw' => $uuidJsonRaw,
             ]);
 
-            return response()->json(['error' => 'No se pudieron traducir todas las carreras.'], 400);
+            return response()->json(['error' => 'No se pudo traducir ninguna carrera recomendada.'], 400);
+        }
+
+        if (count($careerNombres) > 3) {
+            Log::warning('DeepSeek devolvió más de 3 carreras. Se tomarán solo las primeras 3.', [
+                'careerNombres' => $careerNombres,
+            ]);
         }
 
         Log::info('Puntajes CHASIDE del usuario:', $categoryScores);
