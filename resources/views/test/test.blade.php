@@ -13,10 +13,8 @@
     </div>
 
     <div class="container py-5 d-flex flex-column" style="height: 80vh;">
-        <!-- Chat Scrollable -->
         <div id="chat-history" class="flex-grow-1 overflow-auto d-flex flex-column gap-3 py-4" style="scroll-behavior: smooth;">
         </div>
-        <!-- Pregunta y botones abajo -->
         <div id="question-container" class="d-flex flex-column gap-3 justify-content-center pt-3 border-top">
             <div class="p-3 rounded shadow-sm d-inline-block text-bot align-self-start">
                 <p id="question-text" class="mb-0 fw-bold">Cargando...</p>
@@ -31,7 +29,6 @@
         <div id="toast-inner" class="toast text-white" style="background-color:rgb(96, 124, 250);" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header text-white" style="background-color:rgb(96, 106, 250);">
                 <div class="bg-white rounded p-1 me-2 d-flex align-items-center" style="width: 32px; height: 32px;">
-                    <!-- Ícono Robot Cargando -->
                     <svg viewBox="0 0 64 64" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                         <rect x="10" y="20" width="44" height="32" rx="8" fill="#EDE9FE"/>
                         <circle cx="22" cy="36" r="4" fill="#8B5CF6"/>
@@ -104,13 +101,11 @@
             const question = questions[currentQuestionIndex];
             const chatHistory = document.getElementById('chat-history');
 
-            // Bot (pregunta)
             const botMsg = document.createElement('div');
             botMsg.className = 'p-3 rounded shadow-sm d-inline-block text-bot align-self-start';
             botMsg.innerHTML = `<p class="mb-0 fw-bold">${question.description}</p>`;
             chatHistory.appendChild(botMsg);
 
-           // Usuario (respuesta)
             const userMsg = document.createElement('div');
             userMsg.className = `p-3 rounded shadow-sm d-inline-block text-user align-self-end ${
                 selection ? 'btn btn-orange btn-lg px-5 py-3 fw-bold' : 'btn btn-yellow btn-lg px-5 py-3 fw-bold'
@@ -168,7 +163,6 @@
             });
         }
 
-        // Al cargar
         document.addEventListener('DOMContentLoaded', showQuestion);
         document.addEventListener('DOMContentLoaded', () => {
             const completionModal = document.getElementById('completionModal');
@@ -176,12 +170,10 @@
             const toastInner = document.getElementById('toast-inner');
 
             completionModal.addEventListener('hidden.bs.modal', () => {
-                // Mostrar mensaje de carga con toast de Bootstrap
                 const toast = new bootstrap.Toast(toastInner, { autohide: false });
                 loadingToast.classList.remove('d-none');
                 toast.show();
 
-                // Redirigir luego de un breve delay
                 setTimeout(() => {
                     window.location.href = "{{ route('deepseek.result') }}";
                 }, 300);
